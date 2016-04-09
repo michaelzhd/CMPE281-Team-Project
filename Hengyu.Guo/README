@@ -1,16 +1,28 @@
-node.js tutorial:
+Week 1:
+       Apr.3:   Our team members have a meeting talking about individual responsibility.
+	        Form a group of three to implements front-end on heroku and a group of two
+	        to implements MongoDB.
+       Apr.7:   Researching of node.js about downloading and installing. Deploying the sim-
+	        ple HelloWorld project. Finding some useful tutorial about node.js.
+       Apr.8:   Researching of heroku about downloading and installing. Deploying the sim-
+	        ple starter project based on the tutorial.
+       Apr.9:   Asking professor about the responsibility of individual. And reform the gr-
+	        oup of two for front-end, two for MongoDB. My responsibility change to imp-
+	        lement Cassandra for user activity logs.
 
-http://www.tutorialspoint.com/nodejs/
-https://www.airpair.com/javascript/node-js-tutorial
-https://nodejs.org/en/docs/
-http://www.nodebeginner.org/
-https://www.codeschool.com/courses/real-time-web-with-node-js
-https://docs.mongodb.org/getting-started/node/client/
+       node.js tutorial:
 
-node.js Doc:
+		http://www.tutorialspoint.com/nodejs/
+		https://www.airpair.com/javascript/node-js-tutorial
+		https://nodejs.org/en/docs/
+		http://www.nodebeginner.org/
+		https://www.codeschool.com/courses/real-time-web-with-node-js
+		https://docs.mongodb.org/getting-started/node/client/
 
-https://nodejs.org/en/docs/
+	node.js Doc:
 
-heroku tutorial:
-https://devcenter.heroku.com/start
-https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction
+		https://nodejs.org/en/docs/
+
+	heroku tutorial:
+		https://devcenter.heroku.com/start
+		https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction
