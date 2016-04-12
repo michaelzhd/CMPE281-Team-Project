@@ -1,6 +1,8 @@
+
 Student name : Michael Dong
 
 Student ID : 005174781
+
 
 Week 1 accomplished: 
 
