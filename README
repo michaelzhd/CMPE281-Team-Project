@@ -1,0 +1,12 @@
+Created initial schema for user:
+user_name: String,
+first_name:String,
+last_name:String,
+password:String,
+email: String
+
+start mongdb:  mongod
+run server:    node server.js
+
+GET: http://localhost:8080/api/user
+Create: http://localhost:8080/api/user. with user_name in the body.
