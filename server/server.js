@@ -49,5 +49,39 @@ router.route('/user').
         });
     });
 	
+	router.route('/user/:user_name')
+	.get(function(req, res) {
+		User.find({user_name :req.params.user_name}, function(err, user){
+			if (err)
+				res.send(err);
+			res.json(user);
+		});
+	})
+	.put(function(req, res){
+		User.find({user_name:req.params.user_name}, function(err, user){
+			if (err)
+				res.send(err);
+			user.first_name = req.body.first_name;
+			user.last_name = req.body.last_name;
+			user.last_name = req.body.last_name;
+			user.password = req.body.password;
+			user.email = req.body.email;
+			
+			//save the user
+			user.save(function(err){
+				if (err)
+					res.send(err);
+				res.json({message : 'user updated!'});
+			})
+		});
+	})
+	.delete(function(req, res){
+		User.remove({user_name:req.params.user_name}, function(err, user){
+			if (err)
+				res.send(err);
+			res.json({message:'Successfully deleted'});
+		});
+	});
+	
 app.use('/api', router);
 app.listen(port);
