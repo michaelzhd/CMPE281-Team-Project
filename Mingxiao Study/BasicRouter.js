@@ -2,7 +2,7 @@
 
 const http = require('http');
 const url = require('url');
-
+const qs = require('querystring');
 let routes = {
 	'GET' : {
 		'/' : (req, res) => {
@@ -13,6 +13,25 @@ let routes = {
 			res.writeHead(200, {'Content-type': 'text/html'});
 			res.end('<h1>This is about page</h1>');
 		},
+	},
+	'POST' : {
+		'/api/login' : (req, res) => {
+			 let body = '';
+			 req.on('data', data => {
+			 	body += data;
+			 	console.log(body.length);
+			 	if (body.length > 10485760) {
+			 		res.writeHead(413, {'Content-type' : 'text/hmtl'});
+			 		res.end('no more than 10 MB')
+			 		req.connection.destroy();
+			 	}
+			 });
+
+			 req.on('end', () => {
+			 	console.log(body);
+			 	res.end();
+			 })
+		}
 	}
 }
 
