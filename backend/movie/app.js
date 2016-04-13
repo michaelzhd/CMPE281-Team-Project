@@ -6,9 +6,19 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var movie = require('./routes/movie');
+var cart = require('./routes/cart');
+var order = require('./routes/order');
+var user = require('./routes/user');
+
+var settings = require('./settings')
 
 var app = express();
+
+
+//connect to database
+var mongoose = require('mongoose')
+mongoose.connect('mongodb://' + settings.host + ':' + settings.port + '/' + settings.db)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,8 +32,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//access allow settings
+app.use(function(req,res,next){
+	res.header('Access-Control-Allow-Origin', '*'); // can access from anywhere, must be restricted to specific server in production
+	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+	res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+	next();
+});
+
+
+//assign routers
 app.use('/', routes);
-app.use('/users', users);
+app.use('/user', user);
+app.use('movie', movie);
+app.use('cart',cart);
+app.use('order',order);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
