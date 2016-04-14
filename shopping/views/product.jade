@@ -2,6 +2,7 @@ doctype html
 html(lang='en', dir='ltr')
   head
     link(rel='stylesheet', type='text/css', href='stylesheets/css.css')
+    script(src='javascripts/product-function.js')
     title iCart HTML Version
   body
     .menu
@@ -44,7 +45,7 @@ html(lang='en', dir='ltr')
           div
             ul
               li
-                a(href='default.htm') PC (0)
+                a(href='product') #{title} (0)
               li
                 a(href='default.htm') Mac (1)
         li
@@ -102,20 +103,9 @@ html(lang='en', dir='ltr')
           .box-content(style='background:none;border:none;')
             .box-category
               ul
-                li
-                  a(href='#') Desktops (13)
-                li
-                  a(href='#') Laptops & Notebooks (5)
-                li
-                  a(href='#') Components (2)
-                li
-                  a(href='#') Software (0)
-                li
-                  a(href='#') Phones & PDAs (3)
-                li
-                  a(href='#') Cameras (2)
-                li
-                  a(href='#') MP3 Players (4)
+                each entrie in entries
+                  li 
+                    a(href='#') #{entrie.title}
       #content
         .block-white
           .block-content
@@ -162,8 +152,9 @@ html(lang='en', dir='ltr')
                       | Qty:
                       input.quantity(type='text', name='quantity', size='2', value='1')
                       input(type='hidden', name='product_id', value='41')
-                      a#button-cart.button
-                        span Add to Cart
+                      a#button-cart.button(onclick='myFunction()')
+                        span
+                          p#demo Add to Cart
                     div
                       span    - OR -   
                     div
