@@ -31,9 +31,10 @@ Week 1:
 		http://www.tutorialspoint.com/cassandra/
 
 Week 2:
-       Apr.12:  Research on cassandra from tutorial points. Study cassandra introduction, 
-                architecture, data model, installation, referenced API, CQL, and so on...
-       Apr.14:  Download DataStax Distribution of Apache Cassandra. Configure a local connection
-                on port 9042. Create a new keyspace 'demo' with table users. Test local 
-                environment with nodejs. Using async.series to simulate create, select, update
-                delete operation with CQL. Test passed successfully.
+        Apr.12:  Research on cassandra from tutorial points. Study cassandra introduction, 
+                 architecture, data model, installation, referenced API, CQL, and so on...
+        Apr.14:  Download DataStax Distribution of Apache Cassandra. Configure a local connection
+                 on port 9042. Create a new keyspace 'demo' with table users. Test local 
+                 environment with nodejs. Using async.series to simulate create, select, update
+                 delete operation with CQL. Test passed successfully.
+        Apr.15:  Deploy AWS EC2 instance, test cassandra on EC2 instance, test CRUD operations.
