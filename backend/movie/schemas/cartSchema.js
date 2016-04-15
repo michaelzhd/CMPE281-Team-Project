@@ -1,7 +1,7 @@
 var mongoose = require('mongoose')
 
 var cartSchema = new mongoose.Schema({
-	username: String,
+	username: { type: String, required: true },
 	title: String,
 	director: String,
 	year: Number,

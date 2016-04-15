@@ -1,7 +1,7 @@
 var mongoose = require('mongoose')
 
 var movieSchema = new mongoose.Schema({
-	movieId: String,
+	movieId: { type: String, required: true },
 	title: String,
 	director: String,
 	year: Number,
