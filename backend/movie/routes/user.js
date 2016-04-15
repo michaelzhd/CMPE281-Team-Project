@@ -40,21 +40,23 @@ router.route('/:user_name')
 	});
 })
 .put(function(req, res){
-	User.find({user_name:req.params.user_name}, function(err, user){
+	User.find({user_name:req.params.user_name}, function(err, user) {
 		if (err)
 			res.send(err);
-		user.first_name = req.body.first_name;
-		user.last_name = req.body.last_name;
-		user.last_name = req.body.last_name;
-		user.password = req.body.password;
-		user.email = req.body.email;
+		var userFind = user[0];
+		userFind.first_name = req.body.first_name;
+		userFind.last_name = req.body.last_name;
+		userFind.last_name = req.body.last_name;
+		userFind.password = req.body.password;
+		userFind.email = req.body.email;
+		console.log(userFind.first_name);
 		
 		//save the user
-		user.save(function(err){
+		userFind.save(function(err) {
 			if (err)
 				res.send(err);
 			res.json({message : 'user updated!'});
-		})
+		});
 	});
 })
 .delete(function(req, res){
