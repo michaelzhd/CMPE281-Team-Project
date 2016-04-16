@@ -1,13 +1,8 @@
 var mongoose = require('mongoose')
 
 var cartSchema = new mongoose.Schema({
-	username: { type: String, required: true },
-	title: String,
-	director: String,
-	year: Number,
-	price: Number,
-	poster: String,
-
+	userId: { type: String, required: true },
+	movieId: { type: String, required: true },
 	meta: {
 		createTime:{
 			type: Date,
