@@ -6,12 +6,8 @@ var router = express.Router();
 router.route('/').
 	post(function(req, res){
     	var cart = new Cart();
-    	cart.username = req.body.username;
-		cart.title = req.body.title;
-		cart.director = req.body.director;
-		cart.year = req.body.year;
-		cart.price = req.body.price;
-		cart.poster = req.body.poster;
+    	cart.userId = req.body.userId;
+		cart.movieId = req.body.movidId;
 
 		cart.save(function(err){
 			if (err)
@@ -27,27 +23,29 @@ router.route('/').
         });
     });
 	
-router.route('/:username')
+router.route('/:userId')
 .get(function(req, res) {
-	console.log("test");
-	Cart.find({username :req.params.username}, function(err, cart){
+	Cart.find({userId :req.params.userId}, function(err, cart){
+		if (err)
+			res.send(err);
+		res.json(cart);
+	});
+});
+
+router.route('/id/:id')
+.get(function(req, res) {
+	Cart.find({_id :req.params.id}, function(err, cart){
 		if (err)
 			res.send(err);
 		res.json(cart);
 	});
 })
 .put(function(req, res){
-	Cart.find({username:req.params.username}, function(err, cart){
+	Cart.find({_id:req.params.id}, function(err, cart){
 		if (err)
 			res.send(err);
 		var cartFind = cart[0];
-    	cartFind.username = req.body.username;
-		cartFind.title = req.body.title;
-		cartFind.director = req.body.director;
-		cartFind.year = req.body.year;
-		cartFind.price = req.body.price;
-		cartFind.poster = req.body.poster;
-		
+    	cartFind.movieId = req.body.movidId;
 		
 		//save the user
 		cartFind.save(function(err){
@@ -58,7 +56,7 @@ router.route('/:username')
 	});
 })
 .delete(function(req, res){
-	Cart.remove({username:req.params.username}, function(err, cart){
+	Cart.remove({_id:req.params.id}, function(err, cart){
 		if (err)
 			res.send(err);
 		res.json({message:'Successfully deleted'});

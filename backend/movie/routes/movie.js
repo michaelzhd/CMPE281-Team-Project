@@ -6,11 +6,10 @@ var router = express.Router();
 router.route('/').
 	post(function(req, res){
     	var movie = new Movie();
-    	movie.movieId = req.body.movieId;
 		movie.title = req.body.title;
+		movie.director = req.body.director;
 		movie.year = req.body.year;
 		movie.price = req.body.price;
-		movie.poster = req.body.poster;
 
 		movie.save(function(err){
 			if (err)
@@ -26,22 +25,31 @@ router.route('/').
         });
     });
 	
-	router.route('/:movieId')
+	router.route('/:title')
 	.get(function(req, res) {
-		Movie.find({movieId :req.params.movieId}, function(err, movie){
+		Movie.find({title :req.params.title}, function(err, movie){
+			if (err)
+				res.send(err);
+			res.json(movie);
+		});
+	});
+	
+	router.route('/id/:movieId')
+	.get(function(req, res) {
+		Movie.find({_id :req.params.movieId}, function(err, movie){
 			if (err)
 				res.send(err);
 			res.json(movie);
 		});
 	})
 	.put(function(req, res){
-		Movie.find({movieId:req.params.movieId}, function(err, movie){
+		Movie.find({_id:req.params.movieId}, function(err, movie){
 			if (err)
 				res.send(err);
 			movie.title = req.body.title;
 			movie.year = req.body.year;
 			movie.price = req.body.price;
-			movie.poster = req.body.poster;
+			movie.director = req.body.director;
 			
 			//save the user
 			movie.save(function(err){
@@ -52,9 +60,10 @@ router.route('/').
 		});
 	})
 	.delete(function(req, res){
-		Movie.remove({movieId:req.params.movieId}, function(err, movie){
+		Movie.remove({_id:req.params.movieId}, function(err, movie){
 			if (err)
 				res.send(err);
 			res.json({message:'Successfully deleted'});
 		});
 	});
+	module.exports = router;
