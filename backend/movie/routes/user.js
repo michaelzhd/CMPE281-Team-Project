@@ -14,6 +14,7 @@ router.route('/').
     	user.username = req.body.username;
 		user.password = req.body.password;
 		user.email = req.body.email;
+		user.cart = req.body.cart;
 
 		user.save(function(err){
 			if (err)
@@ -44,6 +45,7 @@ router.route('/:username')
 		var userFind = user[0];
 		userFind.password = req.body.password;
 		userFind.email = req.body.email;
+		userFind.cart = req.body.cart;
 		//save the user
 		userFind.save(function(err) {
 			if (err)
@@ -75,6 +77,7 @@ router.route('/id/:id')
 		var userFind = user[0];
 		userFind.password = req.body.password;
 		userFind.email = req.body.email;
+		userFind.cart = req.body.cart;
 		//save the user
 		userFind.save(function(err) {
 			if (err)
