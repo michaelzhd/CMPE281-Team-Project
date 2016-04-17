@@ -7,7 +7,7 @@ router.route('/').
 	post(function(req, res){
     	var cart = new Cart();
     	cart.userId = req.body.userId;
-		cart.movieId = req.body.movidId;
+		cart.movieId = req.body.movieId;
 
 		cart.save(function(err){
 			if (err)

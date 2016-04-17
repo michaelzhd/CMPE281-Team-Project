@@ -1,8 +1,8 @@
 var mongoose = require('mongoose')
 
 var cartSchema = new mongoose.Schema({
-	userId: { type: String, required: true },
-	movieId: { type: String, required: true },
+	userId: { type: String, required: false },
+	movieId: [{ type: String, required: true }],
 	meta: {
 		createTime:{
 			type: Date,
