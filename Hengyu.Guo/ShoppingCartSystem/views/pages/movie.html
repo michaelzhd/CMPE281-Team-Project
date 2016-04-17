@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+<body>
+  <% include ../partials/nav.ejs %>
+
+<div class="container">
+  <h3>
+    <blockquote><strong>Movies</strong></blockquote>
+  </h3>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="thumbnail">
+        <div>
+          <img src="/starwar.jpg">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+        <div class="list-group">
+        <div class="list-group-item" style="color:#d5eeff;background-color:#333;">
+          <h5 class="list-group-item-heading"><b>Title</b></h5>
+          <p class="list-group-item-text">Star War</p>
+        </div>
+        <div class="list-group-item">
+          <h5 class="list-group-item-heading"><b>Director</b></h5>
+          <p class="list-group-item-text">abc</p>
+        </div>
+        <div class="list-group-item">
+          <h5 class="list-group-item-heading"><b>Abstract</b></h5>
+          <p class="list-group-item-text">Scientific fiction movie</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+    <h4><b>Description</b></h4>
+    <p>Star War Description</p>
+    </div>
+  </div>
+</div>
+
+  <% include ../partials/footer.ejs %>
+</body>
+</html>
