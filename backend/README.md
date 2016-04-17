@@ -11,7 +11,7 @@ npm start
 
 User APIs:
 * /user #Post a user, get all users
-* /user/{username} #get user using username
+* /user/{username} #get,update,delete user using username
 * /user/id/{id} #get user, update user, delete user using generated id.
 
 Movie APIs:
@@ -23,4 +23,7 @@ Cart APIs:
 * /cart #Post a cart, get all carts
 * /cart/{userId} #get all carts using userId
 * /cart/id/{id} #get, update, delete a cart using generated id.
+
+
+Request body could be in json format. When update record, please set all fields of a schema even if you didn't change them.
 
