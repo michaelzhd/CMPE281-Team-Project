@@ -74,7 +74,8 @@ router.route('/id/:id')
 	User.find({_id:req.params.id}, function(err, user) {
 		if (err)
 			res.send(err);
-		var userFind = user[0];
+		var userFind = user;
+		// userFind.username = req.body.username;
 		userFind.password = req.body.password;
 		userFind.email = req.body.email;
 		userFind.cart = req.body.cart;
