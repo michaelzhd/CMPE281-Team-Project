@@ -23,7 +23,7 @@ source ~/.bashrc
 ```
 mkdir -p ~/data/mongos/{conf,log}
 
-mkdir -p ~/data/config/{conf,data,log}
+mkdir -p ~/data/configdb/{conf,data,log}
 
 mkdir -p ~/data/shard{1,2,3}/{conf,data,log}
 
