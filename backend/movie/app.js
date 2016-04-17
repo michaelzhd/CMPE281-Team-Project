@@ -44,8 +44,8 @@ app.use(function(req,res,next){
 //assign routers
 app.use('/', routes);
 app.use('/user', user);
-// app.use('/movie', movie);
-// app.use('/cart',cart);
+app.use('/movie', movie);
+app.use('/cart',cart);
 // app.use('/order',order);
 
 // catch 404 and forward to error handler

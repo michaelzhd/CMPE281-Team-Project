@@ -11,11 +11,10 @@ var router = express.Router();
 router.route('/').
 	post(function(req, res){
     	var user = new User();
-    	user.user_name = req.body.user_name;
-		user.first_name = req.body.first_name;
-		user.last_name = req.body.last_name;
+    	user.username = req.body.username;
 		user.password = req.body.password;
 		user.email = req.body.email;
+		user.cart = req.body.cart;
 
 		user.save(function(err){
 			if (err)
@@ -31,26 +30,22 @@ router.route('/').
         });
     });
 	
-router.route('/:user_name')
+router.route('/:username')
 .get(function(req, res) {
-	User.find({user_name :req.params.user_name}, function(err, user){
+	User.find({username :req.params.username}, function(err, user){
 		if (err)
 			res.send(err);
 		res.json(user);
 	});
 })
 .put(function(req, res){
-	User.find({user_name:req.params.user_name}, function(err, user) {
+	User.find({username:req.params.username}, function(err, user) {
 		if (err)
 			res.send(err);
 		var userFind = user[0];
-		userFind.first_name = req.body.first_name;
-		userFind.last_name = req.body.last_name;
-		userFind.last_name = req.body.last_name;
 		userFind.password = req.body.password;
 		userFind.email = req.body.email;
-		console.log(userFind.first_name);
-		
+		userFind.cart = req.body.cart;
 		//save the user
 		userFind.save(function(err) {
 			if (err)
@@ -60,7 +55,39 @@ router.route('/:user_name')
 	});
 })
 .delete(function(req, res){
-	User.remove({user_name:req.params.user_name}, function(err, user){
+	User.remove({username:req.params.username}, function(err, user){
+		if (err)
+			res.send(err);
+		res.json({message:'Successfully deleted'});
+	});
+});
+
+router.route('/id/:id')
+.get(function(req, res) {
+	User.find({_id :req.params.id}, function(err, user){
+		if (err)
+			res.send(err);
+		res.json(user);
+	});
+})
+.put(function(req, res){
+	User.find({_id:req.params.id}, function(err, user) {
+		if (err)
+			res.send(err);
+		var userFind = user[0];
+		userFind.password = req.body.password;
+		userFind.email = req.body.email;
+		userFind.cart = req.body.cart;
+		//save the user
+		userFind.save(function(err) {
+			if (err)
+				res.send(err);
+			res.json({message : 'user updated!'});
+		});
+	});
+})
+.delete(function(req, res){
+	User.remove({_id:req.params.id}, function(err, user){
 		if (err)
 			res.send(err);
 		res.json({message:'Successfully deleted'});

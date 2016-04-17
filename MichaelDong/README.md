@@ -29,10 +29,23 @@ Proposal 2: six nodes distributed in 3 different availability zones. In each ava
 Proposal are depicted in images.
 
 
-To do next week:
+Week2 accomplished:
 
-1. Discuss with teammate to decide which architecture to adopt.
+1. Discussed with teammates and decided to adopt the three instances architecture because it is of intermediate  complexity while six instance architecture is too complex for this project.
 
-2. Implement the architecture on AWS.
+2. Set up deployment environment for MongoDB cluster with Hengyu. The environment consists of a VPC with 3 subnets residing in 3 different availability zone. 3 instances will be instantiated in each subnet. A load balancer will be used to balance requests to these servers.
 
-3. Design backend RESTful API. 
+3. Designed backend RESTful API to access data from MongoDB cluster. The API will be powered by Node.js and express framework. There will be a router object for cart, user, movie individually. A user document will contain the id of a cart document. A cart document will contain multiple ids of movie documents. The API will support GET, POST, PUT, DELETE operations on each resource URI.
+
+4. Implementing the backend RESTful API with Xue, now around 80% functionality finished. The backend system now performs well on local MongoDB instance.
+
+
+Week3 to do:
+
+1. Deploy the MongoDB sharding + replica set cluster on AWS. Write a detailed deployment documentation.
+
+2. Finish slides for extra credit demo.
+
+3. Finish the left functionalities of backend RESTful API implementation.
+
+4. Deploy the backend to MongoDB cluster.
