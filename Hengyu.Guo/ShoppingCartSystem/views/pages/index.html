@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+<body>
+  <% include ../partials/nav.ejs %>
+
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <a href="/" class="lang-logo">
+      <img src="/lang-logo.png">
+    </a>
+    <h1>Shopping Cart System</h1>
+    <p>This is a shopping application deployed to Heroku. It's a reasonably simple app - but a good sample to simulate distributed databases</p>
+  </div>
+</div>
+
+<div class="container">
+  <h3>
+    <blockquote><strong>Movies</strong></blockquote>
+  </h3>
+
+  <% for(var i = 0; i < 6; i++) { %> 
+  <div class="col-md-4">
+    <div class="thumbnail">
+      <div class="text-center">
+        <img src="/starwar.jpg">
+      </div>
+      <div class="caption">
+      <h3>Star War</h3>
+      <p class="this-p">Science fiction Movie</p>
+      <p><a href="/movie/1" class="btn btn-primary" role="button">details</a></p>
+      </div>
+    </div>
+  </div>
+  <% } %>
+</div>
+
+  <% include ../partials/footer.ejs %>
+</body>
+</html>

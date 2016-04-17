@@ -38,3 +38,6 @@ Week 2:
                  environment with nodejs. Using async.series to simulate create, select, update
                  delete operation with CQL. Test passed successfully.
         Apr.15:  Deploy AWS EC2 instance, test cassandra on EC2 instance, test CRUD operations.
+        Apr.16:  After group discussion, I change the responsibility to build the front end. I 
+		 will first build a system structure based on nodejs and express. Using bootstrap
+		 to build the html user interfaces.
