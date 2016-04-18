@@ -41,3 +41,10 @@ Week 2:
         Apr.16:  After group discussion, I change the responsibility to build the front end. I 
 		 will first build a system structure based on nodejs and express. Using bootstrap
 		 to build the html user interfaces.
+
+Week 3:
+	Apr.17:  Coding routes using express's rest service framework. For index page, using nodejs
+		 http core library to request the json data from Amazon EC2 instance MongoDB database.
+		 Parse the response stream data to json object. Then using express's response object 
+		 to render the index page. Contacting team members in charge of databases, talking 
+		 about the problem during the coding practice.
