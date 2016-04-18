@@ -16,10 +16,10 @@ router.route('/').
 		user.email = req.body.email;
 		user.cart = req.body.cart;
 
-		user.save(function(err){
+		user.save(function(err,savedUser){
 			if (err)
 				res.send(err);
-			res.json({message : 'user created!'});
+			res.json(savedUser);
 		})
 	})
     .get(function(req, res){

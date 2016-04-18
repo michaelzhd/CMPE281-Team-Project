@@ -36,10 +36,10 @@ mkdir -p ~/data/shard{1,2,3}/{conf,data,log}
 For config server, create a configsvr.conf file in ~/data/configdb/conf/ with following content:
 ```
 port=21000
-dbpath=~/data/configdb/data/
-logpath=~/data/configdb/log/config.log
+dbpath=~/mongodb/data/configdb/data/
+logpath=~/mongodb/data/configdb/log/config.log
 logappend=true
-pidfilepath=~/data/configdb/config.pid
+pidfilepath=~/mongodb/data/configdb/config.pid
 bind_ip=xxx.xxx.xxx.xxx #IP of current machine
 fork=true
 configsvr=true
@@ -49,10 +49,10 @@ configsvr=true
 For mongos server, create a mongos.conf file in ~/data/mongos/conf/ with following content:
 ```
 port=20000
-logpath=~/data/mongos/log/mongos.log
+logpath=~/mongodb/data/mongos/log/mongos.log
 logappend=true
 bind_ip=xxx.xxx.xxx.xxx #IP of current machine
-pidfilepath=~/data/mongos/mongos.pid
+pidfilepath=~/mongodb/data/mongos/mongos.pid
 
 
 configdb=xxx.xxx.xxx.xxx:xxxxx,xxx.xxx.xxx.xxx:xxxxx,xxx.xxx.xxx.xxx:xxxxx #IP:port of config servers(not sharding servers)
@@ -63,30 +63,63 @@ fork=true
 For shard1 servers, create a shard1.conf file in ~/data/shard1/conf/ with following content:
 ```
 port=22001
-logpath=~/data/shard1/log/shard1.log
+logpath=~/mongodb/data/shard1/log/shard1.log
 logappend=true
-dbpath=~/data/shard1/data/
-pidfilepath=~/data/shard1/shard1.pid
+dbpath=~/mongodb/data/shard1/data/
+pidfilepath=~/mongodb/data/shard1/shard1.pid
 bind_ip=xxx.xxx.xxx.xxx.xxx #IP of current machine
 replSet=shard1
 fork=true
 shardsvr=true
 ```
-For shard2 and shard3, create similar configuration file but replace port, IP and file names correspondingly. Besides, for planned primary node, append following content to the shardX.conf file:
+For shard2 and shard3, create similar configuration file but replace port, IP and file names correspondingly. 
+
+
+
+
+config={_id:"shard2",members:[ {_id:0,host:"172.30.0.112:22002",priority:1}, {_id:1,host:"172.30.1.232:22002",priority:2}, {_id:2,host:"172.30.2.125:22002",arbiterOnly:true}]}
+
+
+config={_id:"shard3",members:[ {_id:0,host:"172.30.0.112:22003",arbiterOnly:true}, {_id:1,host:"172.30.1.232:22003",priority:1}, {_id:2,host:"172.30.2.125:22003",priority:2}]}
+
+
+db.runCommand({addshard:"shard1/172.30.0.112:22001,172.30.1.232:22001,172.30.2.125:22001"});
+
+db.runCommand({addshard:"shard2/172.30.0.112:22002,172.30.1.232:22002,172.30.2.125:22002"});
+
+db.runCommand({addshard:"shard3/172.30.0.112:22003,172.30.1.232:22003,172.30.2.125:22003"});
 
 ```
-priority=2
+mongos> use admin
+switched to db admin
+mongos> db.runCommand({addshard:"shard1/172.30.0.112:22001,172.30.1.232:22001,172.30.2.125:22001"});
+{ "shardAdded" : "shard1", "ok" : 1 }
+mongos> db.runCommand({addshard:"shard2/172.30.0.112:22002,172.30.1.232:22002,172.30.2.125:22002"});
+{ "shardAdded" : "shard2", "ok" : 1 }
+mongos> db.runCommand({addshard:"shard3/172.30.0.112:22003,172.30.1.232:22003,172.30.2.125:22003"});
+{ "shardAdded" : "shard3", "ok" : 1 }
 ```
+```
+//list all shards
 
-for planned secondary node, append:
-
-```
-priority=1
-```
-for arbiter node, append:
-
-```
-arbiterOnly=true
+db.runCommand({listshards:1});
+{
+	"shards" : [
+		{
+			"_id" : "shard1",
+			"host" : "shard1/172.30.0.112:22001,172.30.1.232:22001,172.30.2.125:22001"
+		},
+		{
+			"_id" : "shard2",
+			"host" : "shard2/172.30.0.112:22002,172.30.1.232:22002"
+		},
+		{
+			"_id" : "shard3",
+			"host" : "shard3/172.30.1.232:22003,172.30.2.125:22003"
+		}
+	],
+	"ok" : 1
+}
 ```
 
 

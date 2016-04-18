@@ -9,10 +9,10 @@ router.route('/').
     	cart.userId = req.body.userId;
 		cart.movieId = req.body.movieId;
 
-		cart.save(function(err){
+		cart.save(function(err,savedCart){
 			if (err)
 				res.send(err);
-			res.json({message : 'cart created!'});
+			res.json(savedCart);
 		})
 	})
     .get(function(req, res){

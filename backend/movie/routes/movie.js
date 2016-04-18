@@ -11,10 +11,10 @@ router.route('/').
 		movie.year = req.body.year;
 		movie.price = req.body.price;
 
-		movie.save(function(err){
+		movie.save(function(err,savedmovie){
 			if (err)
 				res.send(err);
-			res.json({message : 'movie created!'});
+			res.json(savedmovie);
 		})
 	})
     .get(function(req, res){
