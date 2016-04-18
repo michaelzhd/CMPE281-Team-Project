@@ -45,7 +45,7 @@ router.route('/id/:id')
 		if (err)
 			res.send(err);
 		var cartFind = cart[0];
-    	cartFind.movieId = req.body.movidId;
+    	cartFind.movieId = req.body.movieId;
 		
 		//save the user
 		cartFind.save(function(err){
