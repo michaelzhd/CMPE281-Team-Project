@@ -44,9 +44,10 @@ router.route('/').
 		});
 	})
 	.put(function(req, res){
-		Movie.find({_id:req.params.movieId}, function(err, movie){
+		Movie.find({_id:req.params.movieId}, function(err, movies){
 			if (err)
 				res.send(err);
+			var movie = movies[0];
 			movie.title = req.body.title;
 			movie.year = req.body.year;
 			movie.price = req.body.price;
