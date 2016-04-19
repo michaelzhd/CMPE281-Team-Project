@@ -14,8 +14,8 @@
   <div class="row">
     <div class="col-md-6">
       <div class="thumbnail">
-        <div>
-          <img src="/starwar.jpg">
+        <div class="text-center">
+          <img src="<%= data.image %>" style="height:250px;width:540px;">
         </div>
       </div>
     </div>
@@ -23,15 +23,15 @@
         <div class="list-group">
         <div class="list-group-item" style="color:#d5eeff;background-color:#333;">
           <h5 class="list-group-item-heading"><b>Title</b></h5>
-          <p class="list-group-item-text">Star War</p>
+          <p class="list-group-item-text"><%= data.title %></p>
         </div>
         <div class="list-group-item">
           <h5 class="list-group-item-heading"><b>Director</b></h5>
-          <p class="list-group-item-text">Spilberg</p>
+          <p class="list-group-item-text"><%= data.director %></p>
         </div>
         <div class="list-group-item">
-          <h5 class="list-group-item-heading"><b>Abstract</b></h5>
-          <p class="list-group-item-text">Scientific fiction movie</p>
+          <h5 class="list-group-item-heading"><b>Price</b></h5>
+          <p class="list-group-item-text">$ <%= data.price %></p>
         </div>
         <div class="list-group-item">
           <h5 class="list-group-item-heading"><b>Buy it!</b></h5>
@@ -41,10 +41,6 @@
           </p>
         </div>
       </div>
-    </div>
-    <div class="col-md-12">
-    <h4><b>Description</b></h4>
-    <p>Star War Description</p>
     </div>
   </div>
 </div>

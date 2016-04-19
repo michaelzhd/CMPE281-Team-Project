@@ -48,3 +48,9 @@ Week 3:
 		 Parse the response stream data to json object. Then using express's response object 
 		 to render the index page. Contacting team members in charge of databases, talking 
 		 about the problem during the coding practice.
+	Apr.19:  Coding for router/controller in nodejs. Writing code for user register and error
+		 validation, user login and error validation, user edit profile and error validation.
+		 Writing code for product presentation, including thumbnail image, product title and 
+		 product price. Writing code for product detail page, using rest url to include 
+		 productID in the url and use body-parser to parse the rest url to get the product 
+		 detail information.
