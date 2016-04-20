@@ -76,4 +76,11 @@ logpath=/home/ec2-user/mongodb/log/mongod.log
 ```
 
 
+####To run the backend
+cd into the project directory, and run
+
+```
+nohup movie/bin/www 1>movie.log 2>movie.err &
+
+```
  
