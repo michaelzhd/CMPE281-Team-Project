@@ -6,7 +6,8 @@ var blogEngine = require('../public/javascripts/blog');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('product', { title:'product', entries: blogEngine.getBlogEntries() });
+  res.render('layout', { title:'product from jie', entries: blogEngine.getMovieInfo() });
+ // res.render('productlist', { movies: blogEngine.movie() });
 });
 
 module.exports = router;
