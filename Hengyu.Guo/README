@@ -54,3 +54,6 @@ Week 3:
 		 product price. Writing code for product detail page, using rest url to include 
 		 productID in the url and use body-parser to parse the rest url to get the product 
 		 detail information.
+	Apr.21:  Unit Testing for user register, error validation, user login and error validation, 
+                 user edit profile and error validation, movie presentation, movie detail page pres-
+		 entation. Integration test for the above part with amazon EC2 MongoDB services.
