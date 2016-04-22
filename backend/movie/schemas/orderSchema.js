@@ -2,11 +2,7 @@ var mongoose = require('mongoose')
 
 var orderSchema = new mongoose.Schema({
 	username: { type: String, required: true },
-	title: String,
-	director: String,
-	year: Number,
-	price: Number,
-	poster: String,
+	cart: {type: String, required: true}
 
 	meta: {
 		createTime:{
