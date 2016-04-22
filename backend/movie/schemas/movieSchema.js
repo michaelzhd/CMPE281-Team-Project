@@ -6,6 +6,10 @@ var movieSchema = new mongoose.Schema({
 	year: Number,
 	price: Number,
 	
+	cast: [String],
+	category: String,
+	description: String,
+	
 	meta: {
 		createTime:{
 			type: Date,

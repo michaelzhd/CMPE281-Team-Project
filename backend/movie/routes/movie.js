@@ -11,6 +11,10 @@ router.route('/').
 		movie.year = req.body.year;
 		movie.price = req.body.price;
 		movie.image = req.body.image;
+		
+		movie.category = req.body.category;
+		movie.description = req.body.description;
+		movie.cast = req.body.cast;
 
 		movie.save(function(err,savedmovie){
 			if (err)
@@ -53,6 +57,10 @@ router.route('/').
 			movie.price = req.body.price;
 			movie.director = req.body.director;
 			movie.image = req.body.image;
+			
+			movie.category = req.body.category;
+			movie.description = req.body.description;
+			movie.cast = req.body.cast;
 			
 			//save the user
 			movie.save(function(err){
