@@ -41,11 +41,32 @@ Week2 accomplished:
 
 
 Week3 to do:
-
 1. Deploy the MongoDB sharding + replica set cluster on AWS. Write a detailed deployment documentation.
-
 2. Finish slides for extra credit demo.
-
 3. Finish the left functionalities of backend RESTful API implementation.
-
 4. Deploy the backend to MongoDB cluster.
+
+
+Week3 accomplished:
+
+1. Deployed the proposed architecture 1 MongoDB sharding + replica set cluster with 3 instances on AWS. Each instance is in a different subnet and different availability zone. Each instance is running 5 MongoDB server processes as indicated in the architecture. The 3 instances in all subnet can only be visited by nodes inside the VPC.  A internal load balancer was deployed in the VPC. The load balancer dispatches requests to mongos server at port 20000 on each MongoDB running instance by round robbing. Backend server will connect to the internal load balancer.
+
+2. Enabled sharding of the database "movie" on the cluster. The collection user, movie, cart are designated to shard1, shard2 and shard3 replica set respectively. In each sharding replica set, there is a primary node, a secondary node and an arbiter node. 
+
+3. Finished 95% functionalities of the backend server. The backend server now connect to MongoDB cluster running on AWS instead of local MongoDB instance.
+
+4. Installed and set up supervisor on the backend server. Now the backend server is managed by supervisor. This fixed the issue that the backend server intermittantly stops for unknown reason. Supervisor will restart the server once failure detected.
+
+5. Fixed other schema related issues.
+
+6. Finished slides for extra credit demo.
+
+Week4 to do:
+
+1. Add an order collection and implement its CRUD operation API.
+
+2. Implement CRUD API for the category field.
+
+3. Try to add authentication mechanism of MongoDB cluster.
+
+
