@@ -57,3 +57,5 @@ Week 3:
 	Apr.21:  Unit Testing for user register, error validation, user login and error validation, 
                  user edit profile and error validation, movie presentation, movie detail page pres-
 		 entation. Integration test for the above part with amazon EC2 MongoDB services.
+	Apr.22:  Team meeting about project milestone. Presentation of my work of frontend framework
+		 and pages, nodejs routers, and interaction with backend database rest services.
