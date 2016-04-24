@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+<body>
+  <% include ../partials/nav.ejs %>
+
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <a href="/" class="lang-logo">
+      <img src="/lang-logo.png">
+    </a>
+    <h1>Shopping Cart System</h1>
+    <p>This is a shopping application deployed to Heroku. It's a reasonably simple app - but a good sample to simulate distributed databases</p>
+  </div>
+</div>
+
+<div class="container">
+  <h3>
+    <blockquote><strong>Movies</strong></blockquote>
+  </h3>
+
+  <% for(var i = 0; i < data.length; i++) { %> 
+  <div class="col-md-4">
+    <div class="thumbnail">
+      <div class="text-center">
+        <img src="<%= data[i].image %>" style="width:340px;height:200px;">
+      </div>
+      <div class="caption">
+      <h3><%= data[i].title %></h3>
+      <p class="this-p">
+        director:&nbsp;&nbsp;<%= data[i].director %>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        year:&nbsp;&nbsp;<%= data[i].year %>
+      </p>
+      <p class="this-p">
+        $<span></span><%= data[i].price %>
+      </p>
+      <p><a href="/movie/<%= data[i]._id %>" class="btn btn-primary" role="button">details</a>
+        <span>
+          <button id="addToCart" data-m-id="<%= data[i]._id %>" class="btn btn-primary" role="button" style="background-color:brown;">add to cart</button>
+        </span>
+      </p>
+      </div>
+    </div>
+  </div>
+  <% } %>
+</div>
+
+  <% include ../partials/footer.ejs %>
+</body>
+</html>
+<script type="text/javascript">
+;jQuery(function($){
+  $('button').click(function(){
+    //alert('added to cart');
+    alert('id:', $(this).attr("data-m-id").val());
+    var data = { 
+      username : $('#inpUserName').val()
+    };
+    $.post('/addToCart', data, function(ret){
+      
+      if(ret.result == true) { 
+        alert('added to cart');
+      }
+      else{
+        
+      }
+    });
+  });
+});
+</script>
