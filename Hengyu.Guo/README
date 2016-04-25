@@ -59,3 +59,10 @@ Week 3:
 		 entation. Integration test for the above part with amazon EC2 MongoDB services.
 	Apr.22:  Team meeting about project milestone. Presentation of my work of frontend framework
 		 and pages, nodejs routers, and interaction with backend database rest services.
+
+Week 4: 
+	Apr.25:  Co-op with Mingxiao Guo for shopping cart design, page coding and REST API coding.
+		 Checking User information from request session object. If user is not login, redirect
+		 him/her to login page. If user is login, goto shopping cart page and let user do the
+		 add item or remove item operation.
+		 
