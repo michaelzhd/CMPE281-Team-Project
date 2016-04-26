@@ -2,8 +2,8 @@ var mongoose = require('mongoose')
 
 var orderSchema = new mongoose.Schema({
 	username: { type: String, required: true },
-	movidId: [{type: String, required: true}],
-	totalAmount: number,
+	movieId: [{type: String, required: true}],
+	totalAmount: Number,
 
 	meta: {
 		createTime:{
