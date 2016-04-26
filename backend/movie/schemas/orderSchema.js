@@ -2,7 +2,8 @@ var mongoose = require('mongoose')
 
 var orderSchema = new mongoose.Schema({
 	username: { type: String, required: true },
-	cart: {type: String, required: true}
+	movidId: [{type: String, required: true}],
+	totalAmount: number,
 
 	meta: {
 		createTime:{
