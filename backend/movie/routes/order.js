@@ -45,10 +45,10 @@ router.route('/:username')
 		orderFind.totalAmount = req.body.totalAmount;
 		
 		//save the order
-		orderFind.save(function(err) {
+		orderFind.save(function(err,savedOrder) {
 			if (err)
 				res.send(err);
-			res.json({message : 'order updated!'});
+			res.json({savedOrder);
 		});
 	});
 })
@@ -76,10 +76,10 @@ router.route('/id/:id')
 		orderFind.movieId = req.body.movieId;
 		orderFind.totalAmount = req.body.totalAmount;
 		//save the order
-		orderFind.save(function(err) {
+		orderFind.save(function(err, savedOrder) {
 			if (err)
 				res.send(err);
-			res.json({message : 'user updated!'});
+			res.json(savedOrder);
 		});
 	});
 })

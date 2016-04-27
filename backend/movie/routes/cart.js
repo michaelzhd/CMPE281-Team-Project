@@ -48,10 +48,10 @@ router.route('/id/:id')
     	cartFind.movieId = req.body.movieId;
 		
 		//save the user
-		cartFind.save(function(err){
+		cartFind.save(function(err, updatedCart){
 			if (err)
 				res.send(err);
-			res.json({message : 'cart updated!'});
+			res.json(updatedCart);
 		})
 	});
 })
