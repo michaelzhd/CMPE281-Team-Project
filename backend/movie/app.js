@@ -10,6 +10,7 @@ var movie = require('./routes/movie');
 var cart = require('./routes/cart');
 var order = require('./routes/order');
 var user = require('./routes/user');
+var category = require('./routes/category');
 
 var settings = require('./settings')
 

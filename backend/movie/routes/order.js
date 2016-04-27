@@ -48,7 +48,7 @@ router.route('/:username')
 		orderFind.save(function(err,savedOrder) {
 			if (err)
 				res.send(err);
-			res.json({savedOrder);
+			res.json(savedOrder);
 		});
 	});
 })
