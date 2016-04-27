@@ -47,6 +47,7 @@ app.use('/user', user);
 app.use('/movie', movie);
 app.use('/cart',cart);
 app.use('/order',order);
+app.use('/category',category);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
