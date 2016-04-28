@@ -65,4 +65,7 @@ Week 4:
 		 Checking User information from request session object. If user is not login, redirect
 		 him/her to login page. If user is login, goto shopping cart page and let user do the
 		 add item or remove item operation.
+	Apr.27:  Add javascript call from front-end html pages to communicate with backend server on 
+		 heroku platform. Building for responsive website for improving user experience. Doing 
+		 some little adjust on the web framework. Prepare to add some fancy UI in the website.
 		 
