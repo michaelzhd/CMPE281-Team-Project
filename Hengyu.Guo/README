@@ -68,4 +68,7 @@ Week 4:
 	Apr.27:  Add javascript call from front-end html pages to communicate with backend server on 
 		 heroku platform. Building for responsive website for improving user experience. Doing 
 		 some little adjust on the web framework. Prepare to add some fancy UI in the website.
-		 
+	Apr.29:  Help teammates debug for administrator's function. Administrator can delete product 
+		 from the product collection. Using nodejs request library to send delete rest call to
+		 AWS EC2 backend. Finished debugging and it works well now. Finishing front-end jQuery
+		 http method call for communicate with heroku backend.	 
