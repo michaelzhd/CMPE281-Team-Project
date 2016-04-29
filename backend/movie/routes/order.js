@@ -11,7 +11,7 @@ var router = express.Router();
 router.route('/').
 	post(function(req, res){
     	var order = new Order();
-    	order.username = req.body.username;
+    	order.userId = req.body.userId;
 		order.movieId = req.body.movieId;
 		order.totalAmount = req.body.totalAmount;
 		order.save(function(err,savedOrder){
@@ -28,16 +28,16 @@ router.route('/').
         });
     });
 	
-router.route('/:username')
+router.route('/:userId')
 .get(function(req, res) {
-	Order.find({username :req.params.username}, function(err, orders){
+	Order.find({userId :req.params.userId}, function(err, orders){
 		if (err)
 			res.send(err);
 		res.json(orders);
 	});
 })
 .put(function(req, res){
-	Order.find({username:req.params.username}, function(err, order) {
+	Order.find({userId:req.params.userId}, function(err, order) {
 		if (err)
 			res.send(err);
 		var orderFind = order[0];
@@ -53,7 +53,7 @@ router.route('/:username')
 	});
 })
 .delete(function(req, res){
-	Order.remove({username:req.params.username}, function(err, order){
+	Order.remove({userId:req.params.userId}, function(err, order){
 		if (err)
 			res.send(err);
 		res.json({message:'Successfully deleted'});
