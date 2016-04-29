@@ -10,7 +10,7 @@
   <h3>
     <blockquote><strong>Movies</strong></blockquote>
   </h3>
-
+  <div id="userId" class="hidden" uid="<%= MemberInfo._id%>"></div>
   <div class="row">
     <div class="col-md-6">
       <div class="thumbnail">
@@ -36,7 +36,7 @@
         <div class="list-group-item">
           <h5 class="list-group-item-heading"><b>Buy it!</b></h5>
           <p class="list-group-item-text">
-            <button id="addToCart" class="btn btn-primary" role="button" style="background-color:brown;">add to cart 
+            <button id="addToCart" mid="<%= data._id %>" class="btn btn-primary" role="button">add to cart 
             </button>
           </p>
         </div>
@@ -45,6 +45,32 @@
   </div>
 </div>
 
-  <% include ../partials/footer.ejs %>
+  
 </body>
+<% include ../partials/footer.ejs %>
 </html>
+
+<script type="text/javascript">
+;jQuery(function ($) {
+  $('#addToCart').on('click', function () {
+
+  var mid = $(this).attr('mid');
+  var data = { 
+    'movieId' : mid
+  };
+  var uid = $('#userId').attr('uid');
+  if (uid === undefined) {
+    window.location.href = '/login';
+  } else {
+    $.post('/addToCart', data, function(ret){
+      if(ret.result == true) { 
+        alert('added to cart');
+      }
+      else{
+        alert('add failure');
+      }
+    });
+  }
+  });
+})
+</script>

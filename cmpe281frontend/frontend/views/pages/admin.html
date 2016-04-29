@@ -31,14 +31,14 @@
 					      <tr class="text-center">
 					        <td><%= movies[i].title %></td>
 					        <td><%= movies[i].price %></td>
-					        <td><button id="removeMovie" mid="<%= movies[i]._id %>" class="btn btn-xs btn-danger">Remove</button></td>
-					        <td><button id="editMovie" mid="<%= movies[i]._id %>" class="btn btn-xs btn-primary">Edit</button></td>
+					        <td><button mid="<%= movies[i]._id %>" class="btn btn-xs btn-danger removeMoive">Remove</button></td>
+					        <td><button mid="<%= movies[i]._id %>" class="btn btn-xs btn-primary editMovie">Edit</button></td>
 					      </tr> 
 					    <% } %>
 					    </tbody>
 						</table>
 						<div style="align-content: center;">
-							<button class="btn btn-primary"> Add Moive </button>
+							<button id="addMovie" class="btn btn-primary"> Add Moive </button>
 						</div>
 					</div>
 
@@ -57,8 +57,8 @@
 					      <tr class="text-center">
 					        <td><%= users[i].username %></td>
 					        <td><%= users[i].email %></td>
-					        <td><button id="removeUser" uid="<%= users[i]._id %>" class="btn btn-xs btn-danger">Remove</button></td>
-					        <td><button id="editUser" uid="<%= users[i]._id %>" class="btn btn-xs btn-primary">Edit</button></td>
+					        <td><button uid="<%= users[i]._id %>" class="btn btn-xs btn-danger removeUser">Remove</button></td>
+					        <td><button uid="<%= users[i]._id %>" class="btn btn-xs btn-primary editUser">Edit</button></td>
 					      </tr> 
 					    <% } %>
 					    </tbody>
@@ -71,14 +71,52 @@
 		</div>
 
 	</div>
-	<% include ../partials/footer.ejs %>
+	
 </body>
+<% include ../partials/footer.ejs %>
 </html>
 <script type="text/javascript">
 ;jQuery(function ($) {
-	$('#removeMovie').on('click', function () {
-		alter('123');
+	$('.removeMoive').on('click', function () {
+		let data = {
+			'id' : $(this).attr('mid'),
+			'type' : 'movies',
+			'operation' : 'remove'
+		};
+		$.post('/admin', data, function (res) {
+			if (res.result == true) {
+				alert('deleted!');
+				window.location.reload();
+			} else {
+				alert('delete failure!');
+			}
+		});
 	});
+	$('.editMovie').on('click', function () {
+		window.location.href = '/editmovie/' + $(this).attr('mid');
+	});
+	$('.removeUser').on('click', function () {
+		let data = {
+			'id' : $(this).attr('uid'),
+			'type' : 'user',
+			'operation' : 'remove'
+		};
+		$.post('/admin', data, function (res) {
+			if (res.result == true) {
+				alert('user deleted!');
+				window.location.reload();
+			} else {
+				alert('delete failure!');
+			}
+		});
+
+	});
+	$('.editUser').on('click', function () {
+		alert($(this).attr('uid'));
+	});
+	$('#addMovie').on('click', function() {
+		
+	})
 });
 
 </script>

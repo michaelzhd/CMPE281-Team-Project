@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<% include ../partials/header.ejs %>
+</head>
+<body>
+	<% include ../partials/nav.ejs %>
+
+	<div class="container" style="height:800px;">
+
+	  <div class="row">
+	    <div class="col-md-3">
+        <h3>Edit User</h3>
+	      <form id="frmEditMovie" role="form">
+	        <div class="form-group">
+	          <label for="inputName">UserName</label>
+	          <input type="text" class="form-control" id="inputName" value="abc" />
+	        </div>
+
+	        <div class="form-group">
+	          <label for="inputEmail">Email</label>
+	          <input type="text" class="form-control" id="inputEmail" value="year"/>
+	        </div>
+
+	        <div class="form-group">
+	          <label for="inputPassword">Password</label>
+	          <input type="text" class="form-control" id="inputPassword" value="Director"/>
+	        </div>
+	        <div class="form-group text-right">
+	          <button id="btnEdit" type="button" class="btn btn-danger">Submit</button>
+	        </div>
+	      </form>
+	    </div>
+
+	  </div>
+
+	</div>
+
+</body>
+	<% include ../partials/footer.ejs %>
+</html>

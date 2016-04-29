@@ -10,24 +10,40 @@
 			<div class="row">
 				<div class="jumbotron col-lg-8 col-lg-offset-2">
 					<table class="table table-bordered">
-				    <thead>
-				      <tr class="warning">
+				    <thead style="text-align: center;">
+				      <tr class="warning" >
 				      	<th class="col-lg-7"><span style="color: black">Title</span></th>
 				        <th class="col-lg-3"><span style="color: black">Price</span></th>
 				        <th class="col-lg-2"><span style="color: black">Remove</span></th>
 				      </tr>
 				    </thead>
-				    <tbody>
-				    <% for(var i = 0; i < data.length; i++) { %>
-				      <tr class="text-center">
-				        <td><%= data[i].title %></td>
-				        <td><%= data[i].price %></td>
-				        <td><button m-id="<% data[i].id %>" class="btn btn-xs btn-primary">Remove</button></td>
-				      </tr> 
+				    <% if(typeof(data) != 'undefined') { %>
+					    <tbody>
+					    <% for(var i = 0; i < data.length; i++) { %>
+					      <tr class="text-center">
+					        <td><%= data[i].title %></td>
+					        <td><%= data[i].price %></td>
+					        <td><button mid="<%= data[i].id %>" class="btn btn-xs btn-danger">Remove</button></td>
+					      </tr> 
+					    <% } %>
+					    <tr style="text-align: center;">
+								<td colspan="2">Total</td>
+								<td id="total" ></td>
+							</tr>
+					    </tbody>
 				    <% } %>
-				    </tbody>
 					</table>
+					<% if(typeof data == 'undefined') { %>
+						<div>
+							<button type="button" class="btn btn-success pull-right" disabled>Check Out</button>
+						</div>
+					<% } else { %>
+					<div>
+						<button id="btnCheckOut" class="btn btn-success pull-right">Check Out</button>
+					</div>
+					<% } %>
 				</div>
+
 			</div>
 
 		</div>
@@ -36,19 +52,34 @@
 </html>
 <script type="text/javascript">
 ;jQuery(function($){
-  $('button').click(function(){
-  	alert($(this).attr('m-id'));
-    var data = { 
-      username : $('#inpUserName').val()
-    };
-    $.post('/register', data, function(ret){
-      
-      if(typeof(ret)==='undefined') { window.location.reload();}
-      if(ret.result == true) { location.href = "/";}
-      else{
-        $('#err_msg').empty().append(ret.msg).parents('#err_msg_block').removeClass('hidden');
-      }
-    });
+  $('.btn-danger').on('click', function () {
+  	var data = {
+  		id : $(this).attr('mid')
+  	}
+  	$.post('/removeItem', data, function (ret) {
+  		if (ret.result) {
+  			window.location.reload();
+  		} else {
+  			alert("can't remove");
+  		}
+  	});
   });
+  var $total = 0.0;
+  //selector一定要加tr才能正确计算
+  $('tr.text-center').each(function () {
+		
+  	var $price = $(this).find("td").eq(1);;
+		
+  	var sum = parseFloat($price.text());
+  	
+  	$total += sum;
+  	console.log($total)
+  });
+  $("#total").text($total);
+
+  $('#btnCheckOut').on('click', function () {
+  	//TODO: check out
+  	alert('check')
+  })
 });
 </script>

@@ -39,8 +39,9 @@
   </div>
 </div>
 
-  <% include ../partials/footer.ejs %>
+  
 </body>
+<% include ../partials/footer.ejs %>
 </html>
 <script type="text/javascript">
 ;jQuery(function($){
@@ -56,7 +57,6 @@
       $('#err_msg_block').addClass('hidden');
       if(typeof(ret)==='undefined') { window.location.reload();}
       if (ret.msg.username == 'admin' && ret.msg.password == 'admin') {
-        //alert('admin');
         window.location.href = "/admin";
       } else if(ret.result == true) { 
         location.href = "/";

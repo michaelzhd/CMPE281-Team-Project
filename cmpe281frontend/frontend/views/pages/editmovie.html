@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<% include ../partials/header.ejs %>
+</head>
+<body>
+	<% include ../partials/nav.ejs %>
+
+	<div class="container" style="height:800px;">
+
+	  <div class="row">
+	    <div class="col-md-3">
+        <h3>Edit Moive</h3>
+	      <form id="frmEditMovie" role="form">
+	        <div class="form-group">
+	          <label for="inputTitle">Title</label>
+	          <input type="text" class="form-control" id="inputTitle" value="<%= data.title %>" />
+	        </div>
+
+	        <div class="form-group">
+	          <label for="inputYear">Year</label>
+	          <input type="text" class="form-control" id="inputYear" value="<%= data.year %>"/>
+	        </div>
+
+	        <div class="form-group">
+	          <label for="inputDirector">Director</label>
+	          <input type="text" class="form-control" id="inputDirector" value="<%= data.director %>"/>
+	        </div>
+
+	        <div class="form-group">
+	          <label for="inputPrice">Price</label>
+	          <input type="text" class="form-control" id="inputPrice" value="<%= data.price %>"/>
+	        </div>
+
+	        <div class="form-group">
+	          <label for="inputPicture">Picture</label>
+	          <input type="text" class="form-control" id="inputPicture" value="<%= data.image %>"/>
+	        </div>
+
+
+	        <div class="form-group text-right">
+	          <button id="btnEdit" mid="<%= data._id %>" type="button" class="btn btn-danger">Submit</button>
+	        </div>
+	      </form>
+	    </div>
+
+	  </div>
+
+	</div>
+
+</body>
+	<% include ../partials/footer.ejs %>
+</html>
+<script type="text/javascript">
+;jQuery(function ($) {
+	$('#btnEdit').on('click', function () {
+		var data = {
+			id: $(this).attr('mid'),
+			price: $('#inputPrice').val(),
+			year: $('#inputYear').val(),
+			director: $('#inputDirector').val(),
+			title: $('#inputTitle').val(),
+			image: $('#inputPicture').val()
+		};
+
+		$.post('/editMovie', data, function (ret) {
+			if (ret.result == true) {
+				alert(ret.msg);
+				window.location.href = '/admin';
+			} else {
+				alert('update failure');
+			}
+		});
+	})
+})
+</script>

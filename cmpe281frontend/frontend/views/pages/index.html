@@ -21,7 +21,9 @@
   <h3>
     <blockquote><strong>Movies</strong></blockquote>
   </h3>
-
+  <% if (typeof MemberInfo != 'undefined') { %>
+    <div id="userId" class="hidden" uid="<%= MemberInfo._id%>"></div>
+  <% } %>
   <% for(var i = 0; i < data.length; i++) { %> 
   <div class="col-md-4">
     <div class="thumbnail">
@@ -38,9 +40,10 @@
       <p class="this-p">
         $<span></span><%= data[i].price %>
       </p>
-      <p><a href="/movie/<%= data[i]._id %>" class="btn btn-primary" role="button">details</a>
+      <p><a href="/movie/<%= data[i]._id %>" class="btn btn-info" role="button">details</a>
         <span>
-          <button id="addToCart" class="btn btn-primary" mid="<%= data[i]._id %>" role="button" style="background-color:brown;">add to cart</button>
+          <button class="btn btn-warning" mid="<%= data[i]._id %>" role="button" >add to cart</button>
+
         </span>
       </p>
       </div>
@@ -54,30 +57,27 @@
 </html>
 <script type="text/javascript">
 ;jQuery(function($){
-/*  $('.addToCart').on('click', function () {
-    alert('123');
-  })
-*/
-
-  $('button').click(function(){
+  $('.btn-warning').on('click', function () {
+    
     var mid = $(this).attr('mid');
     var data = { 
-      'id' : mid
+      'movieId' : mid
     };
-    // can't add to cart unless you logged in
-    if(typeof(MemberInfo) == 'undefined') { 
+    var uid = $('#userId').attr('uid');
+    if (uid === undefined) {
       window.location.href = '/login';
     } else {
       $.post('/addToCart', data, function(ret){
         if(ret.result == true) { 
-          alert('added to cart');
+          BootstrapDialog.show({
+              message: 'Added to cart!'
+          });
         }
         else{
-          
+          alert('add failure');
         }
       });
     }
-
   });
 });
 </script>

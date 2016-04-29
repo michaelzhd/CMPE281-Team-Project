@@ -64,8 +64,13 @@ app.get('/movie/:id', function(req, res) {
  		response.on('end', function() {
 			// Data reception is done, do whatever with it!
 			var parsed = JSON.parse(body)[0];
-			//console.log(parsed);
-			res.render('pages/movie', { data : parsed });
+			console.log('par:', parsed);
+			if (req.session.info) {
+				res.render('pages/movie', { data : parsed, MemberInfo : req.session.info});
+			} else {
+				res.render('pages/movie', { data : parsed });
+			}
+			
 		});
  	});
 });
@@ -77,7 +82,7 @@ app.get('/login', function(req, res) {
 
 app.post('/login', function(req, res){
 	var username = req.body.username;
-	console.log(username);
+	//console.log(username);
 	var pwd = req.body.pwd;
 	if (username == '') return json_false(res, "Please input valid username");
 	if (pwd == '') return json_false(res, "Please input valid password");
@@ -93,7 +98,7 @@ app.post('/login', function(req, res){
 				var cartParsedData = JSON.parse(cartBody)[0];
 				req.session.info.cartID = cartParsedData._id;
 				req.session.info.movieIDs = cartParsedData.movieId;
-				console.log(req.session.info)
+				//console.log(req.session.info)
 				res.json({result : true, msg : req.session.info});
 			});
 			response.on('error', function (err) {
@@ -157,18 +162,15 @@ app.post('/register', function(req, res){
 	  }
 	};
 	var request = http.request(options, function(response) {
-	  console.log(`STATUS: ${response.statusCode}`);
-	  console.log(`HEADERS: ${JSON.stringify(response.headers)}`);
 	  response.setEncoding('utf8');
 	  var result = '';
 	  response.on('data', (chunk) => {
 	    result += chunk;
-	    console.log(chunk);
 	  });
 	  response.on('end', () => {
-	  	parsed = JSON.parse(result);
+	  	var parsed = JSON.parse(result);
 	  	if (parsed._id) {
-	  		res.json({result : true, data : parsed});
+	  		createCart(parsed);
 	  	} else {
 	  		res.json({result : false, msg : "register fail!"});
 	  	}
@@ -180,6 +182,39 @@ app.post('/register', function(req, res){
 	});
 	request.write(JSON.stringify(user));
 	request.end();
+
+	var createCart = function (parsed) {
+		var options = {
+			hostname: '54.187.124.117',
+			port: 3000,
+			path: '/cart',
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		};
+		var request2 = http.request(options, function(response) {
+		  response.setEncoding('utf8');
+		  var result = '';
+		  response.on('data', (chunk) => {
+		    result += chunk;
+		  });
+		  response.on('end', () => {
+		  	var p = JSON.parse(result);
+		  	if (parsed._id) {
+		  		res.json({result : true, msg : "register ok!"});
+		  	} else {
+		  		res.json({result : false, msg : "register fail!"});
+		  	}
+		  })
+		});
+
+		request2.on('error', (e) => {
+		  console.log(`problem with request: ${e.message}`);
+		});
+		request2.write(JSON.stringify({userId:parsed._id}));
+		request2.end();
+	};
 });
 
 // profile page
@@ -213,10 +248,9 @@ app.post('/profile', function(req, res){
 	  var result = '';
 	  response.on('data', (chunk) => {
 	    result += chunk;
-	    console.log(chunk);
 	  });
 	  response.on('end', () => {
-	  	parsed = JSON.parse(result);
+	  	var parsed = JSON.parse(result);
 	  	if (parsed.message === "user updated!") {
 	  		req.session.info.username = username;
 	  		req.session.info.email = email;
@@ -243,16 +277,20 @@ app.get('/logout', function(req, res) {
 });
 
 app.get('/cart', function (req, res) {
-	//console.log(req.session.info);
+	console.log(req.session.info);
 	var movieIdList = req.session.info.movieIDs;
 	var movieInfoList = [];
-
+	console.log('my mlist: ', movieIdList)
+	if (movieIdList.length == 0) {
+		res.render('pages/cart', {MemberInfo : req.session.info});
+		return;
+	}
 	var getMovieNameList = function (movie) {
 		movieInfoList.push(movie);
 		if (movieInfoList.length == movieIdList.length) {
-			//console.log('in if condi', movieInfoList);
+			console.log('in if condi', req.session.info);
 			movieInfoList.sort();
-			res.render('pages/cart',  {data : movieInfoList} );
+			res.render('pages/cart',  { data : movieInfoList, MemberInfo : req.session.info} );
 		}
 	}
 
@@ -267,7 +305,9 @@ app.get('/cart', function (req, res) {
 	 		response.on('end', function() {
 				// Data reception is done, do whatever with it!
 				var parsed = JSON.parse(body)[0];
+				//console.log('in cart: ', parsed)
 				var movie = {
+					'id' : parsed._id,
 					'title' : parsed.title,
 					'price' : parsed.price
 				};
@@ -275,7 +315,50 @@ app.get('/cart', function (req, res) {
 			});
 	 	});
 	});
-})
+});
+
+app.post('/removeItem', function (req, res) {
+	var id = req.body.id;
+	console.log('id is: ', id)
+	var options = {
+		host: '54.187.124.117',
+		port: 3000,
+		path: '/cart/id/' + req.session.info.cartID,
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	};
+	
+	var movieList = req.session.info.movieIDs;
+	var index = movieList.indexOf(id);
+	movieList.splice(index, 1);
+
+
+	var request = http.request(options, function(response) {
+	  response.setEncoding('utf8');
+	  var result = '';
+	  response.on('data', (chunk) => {
+	    result += chunk;
+	    //console.log(chunk);
+	  });
+	  response.on('end', () => {
+	  	var parsed = JSON.parse(result);
+		console.log(parsed);
+	  	if (parsed._id) {
+	  		res.json({result : true, data : parsed});
+	  	} else {
+	  		res.json({result : false, msg : "register fail!"});
+	  	}
+	  })
+	});
+
+	request.on('error', (e) => {
+	  console.log(`problem with request: ${e.message}`);
+	});
+	request.write(JSON.stringify(movieList));
+	request.end();
+});
 
 app.get('/admin', function (req, res) {
 	 
@@ -300,60 +383,152 @@ app.get('/admin', function (req, res) {
 
 			response.on('end', function () {
 				var allUsers = JSON.parse(usersBody);
-				res.render('pages/admin', {result : true, movies : allMoives.sort(), users : allUsers.sort()});
+				res.render('pages/admin', {result : true, movies : allMoives.sort(), users : allUsers.sort(), MemberInfo : req.session.info});
 			});
 		});		
 	};
+});
 
-	
+app.post('/admin', function (req, res) {
+	var data = req.body;
 
-	
-})
+	if (data.type == 'movies') {
+		request.del('http://54.187.124.117:3000/movie/id/'+ data.id, function (error,response,body) {
+			let resBody = response.body;
+			if (!error) {
+				res.json({result : true, msg : resBody.message});
+			} else {
+				console.log(error);
+				res.json({result : false, msg : 'Delete failure!'});
+			}
+		});
+	} else {
+		request.del('http://54.187.124.117:3000/user/id/'+ data.id, function (error,response,body) {
+			let resBody = response.body;
+			if (!error) {
+				res.json({result : true, msg : resBody.message});
+			} else {
+				console.log(error);
+				res.json({result : false, msg : 'Delete failure!'});
+			}
+		});
+	}
+});
 
 app.post('/addToCart', function (req, res) {
-	var addId = req.body.id;
-	console.log(req.session.info);
-	/*var updateCart = {
-		"username" : username,
-		"password" : req.session.info.password,
-		"email" : email
+	var addId = req.body.movieId;
+	var cart = req.session.info.movieIDs;
+	
+	cart.push(addId);
+	//console.log('cart is: ', cart);
+	var newCart = {
+		movieId : cart,
 	}
+
 	var options = {
-	  hostname: '54.187.124.117',
-	  port: 3000,
-	  path: '/cart/id/' + req.session.info._id,
-	  method: 'PUT',
-	  headers: {
-	    'Content-Type': 'application/json'
-	  }
+		hostname: '54.187.124.117',
+		port: 3000,
+		path: '/cart/id/' + req.session.info.cartID,
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json'
+		}
 	};
+
+
 	var request = http.request(options, function(response) {
-	  console.log(`STATUS: ${response.statusCode}`);
-	  console.log(`HEADERS: ${JSON.stringify(response.headers)}`);
-	  response.setEncoding('utf8');
-	  var result = '';
-	  response.on('data', (chunk) => {
-	    result += chunk;
-	    console.log(chunk);
-	  });
-	  response.on('end', () => {
-	  	parsed = JSON.parse(result);
-	  	if (parsed.message === "user updated!") {
-	  		req.session.info.username = username;
-	  		req.session.info.email = email;
-	  		res.json({result : true, MemberInfo : req.session.info});
-	  	} else {
-	  		res.json({result : false, msg : "register fail!"});
-	  	}
-	  })
+		console.log(`STATUS: ${response.statusCode}`);
+		console.log(`HEADERS: ${JSON.stringify(response.headers)}`);
+		response.setEncoding('utf8');
+		var result = '';
+		response.on('data', (chunk) => {
+			result += chunk;
+			console.log(chunk);
+		});
+		response.on('end', () => {
+			var parsed = JSON.parse(result);
+			console.log('parsed: ', parsed)
+			if (typeof parsed != undefined) {
+				res.json({result : true});
+			} else {
+				res.json({result : false, msg : "add fail!"});
+			}
+		})
 	});
 
 	request.on('error', (e) => {
 	  console.log(`problem with request: ${e.message}`);
 	});
-	request.write(JSON.stringify(user));
-	request.end();*/
+	request.write(JSON.stringify(newCart));
+	request.end();
+});
+
+app.get('/editMovie/:id', function (req, res) {
+	http.get({ host: '54.187.124.117', port: '3000', path: '/movie/id/' + req.params.id}, function(response) {
+		// Continuously update stream with data
+		var body = '';
+		response.on('data', function(d) {
+			body += d;
+		});
+		
+ 		response.on('end', function() {
+			var parsed = JSON.parse(body)[0];
+			//console.log(parsed);
+			res.render('pages/editmovie', { data : parsed});
+		});
+ 	});
+});
+
+app.post('/editMovie', function (req, res) {
+
+	var id = req.body.id;
+	var options = {
+		host: '54.187.124.117',
+		port: 3000,
+		path: '/movie/id/' + id,
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	};
+
+	var movieInfo = {
+		"price" : req.body.price,
+		"year" : req.body.year,
+		"director" : req.body.director,
+		"title" : req.body.title,
+		"image" : req.body.image
+	}
+
+	var request = http.request(options, function(response) {
+		response.setEncoding('utf8');
+		var result = '';
+		response.on('data', (chunk) => {
+			result += chunk;
+		});
+		response.on('end', function () {
+			var parsed = JSON.parse(result);
+			console.log('res is: ', parsed.message)
+			if (parsed.message == 'movie updated!') {
+				res.json({result : true, msg: parsed.message});
+			} else {
+				res.json({result : false});
+			}
+		});
+	});
+
+	request.on('error', function(e) {
+		console.log('problem with request: ' + e.message);
+	});
+
+	// write data to request body
+	request.write(JSON.stringify(movieInfo));
+	request.end();
 })
+
+app.get('/editUser', function (req, res) {
+	res.render('pages/editUser');
+});
 
 function json_false (res, msg) {
 	res.json({ result : false, msg : msg });
