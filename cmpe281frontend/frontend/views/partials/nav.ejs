@@ -8,8 +8,12 @@
     <ul class="nav navbar-nav navbar-right">
       <li class="navbar-right">
       <% if(typeof(MemberInfo) != 'undefined') { %>
-        <a href="/profile"><span class="glyphicon glyphicon-user"></span> <%= MemberInfo.username %></a>
-        <a href="/cart"><span class="glyphicon glyphicon-shopping-cart"> Cart</span></a>
+        <% if(MemberInfo.username != 'admin') { %>
+          <a href="/profile"><span class="glyphicon glyphicon-user"></span> <%= MemberInfo.username %></a>
+          <a href="/cart"><span class="glyphicon glyphicon-shopping-cart"> Cart</span></a>
+        <% } else { %>
+          <a href="/profile"><span class="glyphicon glyphicon-user"></span> <%= MemberInfo.username %></a>
+        <% } %>
       <%  } else {%>
       
         <a href="/login"><span class="glyphicon glyphicon-user"></span> Login</a>

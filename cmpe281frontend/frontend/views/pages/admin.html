@@ -112,10 +112,10 @@
 
 	});
 	$('.editUser').on('click', function () {
-		alert($(this).attr('uid'));
+		window.location.href = '/edituser/' + $(this).attr('uid');
 	});
 	$('#addMovie').on('click', function() {
-		
+		window.location.href = '/addmovie';
 	})
 });
 

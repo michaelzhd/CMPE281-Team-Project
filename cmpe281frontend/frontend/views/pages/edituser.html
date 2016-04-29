@@ -14,20 +14,20 @@
 	      <form id="frmEditMovie" role="form">
 	        <div class="form-group">
 	          <label for="inputName">UserName</label>
-	          <input type="text" class="form-control" id="inputName" value="abc" />
+	          <input type="text" class="form-control" id="inputName" value="<%= data.username %>" disabled/>
 	        </div>
 
 	        <div class="form-group">
 	          <label for="inputEmail">Email</label>
-	          <input type="text" class="form-control" id="inputEmail" value="year"/>
+	          <input type="text" class="form-control" id="inputEmail" value="<%= data.email%>"/>
 	        </div>
 
 	        <div class="form-group">
 	          <label for="inputPassword">Password</label>
-	          <input type="text" class="form-control" id="inputPassword" value="Director"/>
+	          <input type="text" class="form-control" id="inputPassword" value="<%= data.password%>"/>
 	        </div>
 	        <div class="form-group text-right">
-	          <button id="btnEdit" type="button" class="btn btn-danger">Submit</button>
+	          <button id="btnEdit" type="button" uid="<%= data._id%>" class="btn btn-danger">Submit</button>
 	        </div>
 	      </form>
 	    </div>
@@ -39,3 +39,24 @@
 </body>
 	<% include ../partials/footer.ejs %>
 </html>
+<script type="text/javascript">
+;jQuery(function ($) {
+	$('#btnEdit').on('click', function () {
+		var data = {
+			id: $(this).attr('uid'),
+			username: $('#inputName').val(),
+			email: $('#inputEmail').val(),
+			password: $('#inputPassword').val()
+		};
+
+		$.post('/editUser', data, function (ret) {
+			if (ret.result == true) {
+				alert(ret.msg);
+				window.location.href = '/admin';
+			} else {
+				alert('update failure');
+			}
+		});
+	})
+})
+</script>

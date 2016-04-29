@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<% include ../partials/header.ejs %>
+</head>
+<body>
+	<% include ../partials/nav.ejs %>
+
+	<div class="container" style="height:800px;">
+
+	  <div class="row">
+	    <div class="col-md-3">
+        <h3>Add Moive</h3>
+	      <form id="frmEditMovie" role="form">
+	        <div class="form-group">
+	          <label for="inputTitle">Title</label>
+	          <input type="text" class="form-control" id="inputTitle" placeholder="Title" />
+	        </div>
+
+	        <div class="form-group">
+	          <label for="inputYear">Year</label>
+	          <input type="text" class="form-control" id="inputYear" placeholder="Year" />
+	        </div>
+
+	        <div class="form-group">
+	          <label for="inputDirector">Director</label>
+	          <input type="text" class="form-control" id="inputDirector" placeholder="Director" />
+	        </div>
+
+	        <div class="form-group">
+	          <label for="inputPrice">Price</label>
+	          <input type="text" class="form-control" id="inputPrice"  placeholder="Price" />
+	        </div>
+
+	        <div class="form-group">
+	          <label for="inputPicture">Picture</label>
+	          <input type="text" class="form-control" id="inputPicture" placeholder="Picture" />
+	        </div>
+
+
+	        <div class="form-group text-right">
+	          <button id="btnAdd" type="button" class="btn btn-danger">Submit</button>
+	        </div>
+	      </form>
+	    </div>
+
+	  </div>
+
+	</div>
+
+</body>
+	<% include ../partials/footer.ejs %>
+</html>
+<script type="text/javascript">
+;jQuery(function ($) {
+	$('#btnAdd').on('click', function () {
+		var data = {
+			price: $('#inputPrice').val(),
+			year: $('#inputYear').val(),
+			director: $('#inputDirector').val(),
+			title: $('#inputTitle').val(),
+			image: $('#inputPicture').val()
+		};
+
+		$.post('/addMovie', data, function (ret) {
+			if (ret.result == true) {
+				alert(ret.msg + ' has been added!');
+				window.location.href = '/admin';
+			} else {
+				alert('add failure');
+			}
+		});
+	})
+})
+</script>
