@@ -10,7 +10,9 @@
   <h3>
     <blockquote><strong>Movies</strong></blockquote>
   </h3>
+  <% if (typeof MemberInfo != 'undefined') { %>
   <div id="userId" class="hidden" uid="<%= MemberInfo._id%>"></div>
+  <% } %>
   <div class="row">
     <div class="col-md-6">
       <div class="thumbnail">
@@ -63,12 +65,8 @@
     window.location.href = '/login';
   } else {
     $.post('/addToCart', data, function(ret){
-      if(ret.result == true) { 
-        alert('added to cart');
-      }
-      else{
-        alert('add failure');
-      }
+      num = (parseInt($("#NumOfItems").text())+1);
+      $('#NumOfItems').text(num );
     });
   }
   });
