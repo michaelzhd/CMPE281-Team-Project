@@ -14,7 +14,7 @@
                 <div class="caption">
                     <h3><a href="/movie"><%= movies[i].title %></a></h3>
                     <p>$<%= movies[i].price %></p>
-                    <button id="addToCart" mid="<%= movies[i]._id %>" class="btn btn-primary" role="button" onclick=myFunction() >add to cart
+                    <button id="<%= movies[i]._id %>" mid="<%= movies[i]._id %>" class="btn btn-primary" role="button" onclick=AddtoCart(this) >add to cart
                     </button>
                 </div>
             </div>

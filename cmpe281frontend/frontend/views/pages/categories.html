@@ -34,12 +34,15 @@
 </html>
 
 <script type="text/javascript">
-    ;jQuery(function ($) {
-        $('#addToCart').on('click', function () {
+    AddtoCart = function(movieId) {
 
-            var mid = $(this).attr('mid');
+//    }
+//    ;jQuery(function ($) {
+//        $('#addToCart').on('click', function () {
+
+            //var mid = $('#movieid').attr('mid');
             var data = {
-                'movieId' : mid
+                'movieId' : movieId.id
             };
             var uid = $('#userId').attr('uid');
             if (uid === undefined) {
@@ -50,6 +53,6 @@
                     $('#NumOfItems').text(num );
                 });
             }
-        });
-    })
+//        });
+    }
 </script>
