@@ -1,83 +1,47 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <% include ../partials/header.ejs %>
+  <% include ../partials/header %>
 </head>
+
 <body>
-  <% include ../partials/nav.ejs %>
-
-
-<div class="jumbotron text-center">
-  <div class="container">
-    <a href="/" class="lang-logo">
-      <img src="/lang-logo.png">
-    </a>
-    <h1>Shopping Cart System</h1>
-    <p>This is a shopping application deployed to Heroku. It's a reasonably simple app - but a good sample to simulate distributed databases</p>
-  </div>
-</div>
+<head>
+  <% include ../partials/nav %>
+</head>
 
 <div class="container">
-  <h3>
-    <blockquote><strong>Movies</strong></blockquote>
-  </h3>
-  <% if (typeof MemberInfo != 'undefined') { %>
-    <div id="userId" class="hidden" uid="<%= MemberInfo._id%>"></div>
-  <% } %>
-  <% for(var i = 0; i < data.length; i++) { %> 
-  <div class="col-md-4">
-    <div class="thumbnail">
-      <div class="text-center">
-        <img src="<%= data[i].image %>" style="width:340px;height:200px;">
-      </div>
-      <div class="caption">
-      <h3><%= data[i].title %></h3>
-      <p class="this-p">
-        director:&nbsp;&nbsp;<%= data[i].director %>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        year:&nbsp;&nbsp;<%= data[i].year %>
-      </p>
-      <p class="this-p">
-        $<span></span><%= data[i].price %>
-      </p>
-      <p><a href="/movie/<%= data[i]._id %>" class="btn btn-info" role="button">details</a>
-        <span>
-          <button class="btn btn-warning" mid="<%= data[i]._id %>" role="button" >add to cart</button>
-
-        </span>
-      </p>
-      </div>
-    </div>
+  <div class="row container-fluid">
+    <% include ../partials/carousel.ejs %>
   </div>
-  <% } %>
-</div>
 
-  <% include ../partials/footer.ejs %>
+  <!-- Main component for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <h1>Movie Market</h1>
+    <p><h2>Drama, action, comedy, documentaries, TV shows — all the stuff you love to watch, personalized for you.</h2></p>
+    <p><h2>New movies and TV shows coming all the time.</h2></p>
+    <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">Join us free</a>
+  </div>
+
+
+
+</div> <!-- /container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script src="https://code.jquery.com/jquery-2.2.3.js"   integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4="   crossorigin="anonymous"></script>
+
+<script>window.jQuery || document.write('<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"><\/script>')</script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
 </body>
+<footer>
+  <% include ../partials/footer %>
+</footer>
+
 </html>
-<script type="text/javascript">
-;jQuery(function($){
-  $('.btn-warning').on('click', function () {
-    
-    var mid = $(this).attr('mid');
-    var data = { 
-      'movieId' : mid
-    };
-    var uid = $('#userId').attr('uid');
-    if (uid === undefined) {
-      window.location.href = '/login';
-    } else {
-      $.post('/addToCart', data, function(ret){
-        if(ret.result == true) { 
-          BootstrapDialog.show({
-              message: 'Added to cart!'
-          });
-        }
-        else{
-          alert('add failure');
-        }
-      });
-    }
-  });
-});
-</script>
