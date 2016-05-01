@@ -61,12 +61,18 @@ Week3 accomplished:
 
 6. Finished slides for extra credit demo.
 
-Week4 to do:
 
-1. Add an order collection and implement its CRUD operation API.
+Week4 Accomplished:
+1. An order collection was added to the schema of MongoDB backend. Also a CRUD operations API was exposed against the resource "/order". To search order, both "_id" or "userId" can be used.
 
-2. Implement CRUD API for the category field.
+2. Implemented GET(READ) API for the category field. The category has no corresponding data structure or collection in MongoDB database. It is only a field in the movie document. Thus only a router file is enough. The category API does not allow CREATE, UPDATE or DELETE.
 
-3. Try to add authentication mechanism of MongoDB cluster.
+3. Authentication mechanism of MongoDB cluster is in progress. 
+
+4. Tested Partition Tolerance and Consistency property of the MongoDB cluster. On each of the three server instances, use iptables to block access from other two server instances. As expected, the shard servers on the partitioned ec2 instances become unavailable. After recovery, the partitioned servers become consistent with other cluster members. The MongoDB cluster is highly available, scalable and strongly consistent as designed.
+
+5. Fixed bugs or improved design:
+  (1)for order schema and routes, change username to userId
+  (2)modify the update API for cart to return json data instead of a string
 
 
