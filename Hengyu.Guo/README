@@ -65,10 +65,15 @@ Week 4:
 		 Checking User information from request session object. If user is not login, redirect
 		 him/her to login page. If user is login, goto shopping cart page and let user do the
 		 add item or remove item operation.
-	Apr.27:  Add javascript call from front-end html pages to communicate with backend server on 
+	Apr.27:  Adding javascript call from front-end html pages to communicate with backend server on 
 		 heroku platform. Building for responsive website for improving user experience. Doing 
-		 some little adjust on the web framework. Prepare to add some fancy UI in the website.
+		 some little adjust on the web framework(header section, navigator section and footer section
+		 ). Prepare to add some fancy UI in the website.
 	Apr.29:  Help teammates debug for administrator's function. Administrator can delete product 
 		 from the product collection. Using nodejs request library to send delete rest call to
-		 AWS EC2 backend. Finished debugging and it works well now. Finishing front-end jQuery
-		 http method call for communicate with heroku backend.	 
+		 Amazon Web Service EC2 backend. Finished debugging of my individual part and it works 
+		 well now. Finishing front-end jQuery http method call for communicate with heroku backend.
+	Apr.30:  Adding fancy UI to the website. Change css file configuration to make the website looks
+		 better. Adding new image into the website. Integrate the code with the whole team members.
+		 Debug the code for some small html render and redirect error. Finishing the whole project
+		 and it works well now.

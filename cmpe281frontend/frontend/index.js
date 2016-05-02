@@ -149,7 +149,11 @@ app.post('/login', function(req, res){
  		response.on('end', function() {
 			// Data reception is done, do whatever with it!
 			var parsed = JSON.parse(body)[0];
-			console.log(parsed);
+			if(parsed == undefined) {
+				res.json({result: false, msg : "invalid user!"});
+				return;
+			}
+
 			if (parsed.password == pwd) {
 				req.session.info = parsed;
 				if(username != 'admin') {

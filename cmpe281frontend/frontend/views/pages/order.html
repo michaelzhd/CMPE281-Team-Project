@@ -14,28 +14,34 @@
                   <h3 class="text-center"><strong>Order summary</strong></h3>
               </div>
               <div class="panel-body">
-              <% if(typeof(orders) != 'undefined') { %>
-              	<% for(var i = 0; i < orders.length; i++) { %>
+              <% if(typeof(data) != 'undefined') { %>
+              	<% for(var i = 0; i < data.length; i++) { %>
                   <div class="table-responsive">
                       <table class="table table-condensed">
                           <thead>
                               <tr>
                                   <td><strong>Movie Title</strong></td>
-                                  <td class="text-center"><strong>Movie Price</strong></td>
+                                  <td class="text-center"><strong>Total Price</strong></td>
                               </tr>
                           </thead>
                           <% if(typeof(data) != 'undefined') { %>
                           <tbody>
-                          	<% for(var j = 0; j < orders[i].movieId.length; j++) { %>
+                          	<% for(var j = 0; j < data[i].movieId.length; j++) { %>
                             <tr>
-                                <td><%= data[j].title%></td>
-                                <td class="text-center">$<%= orders[i].data[j].price%></td>
+                                <% for(var k = 0; k < MovieInfo.length; k++) {%>
+                                <% if(MovieInfo[k]._id == data[i].movieId[j]) {%>
+                                <td>
+                                  <%= MovieInfo[k].title %>
+                                </td>
+                                <% }} %>
+                                <td class="text-center"></td>
                             </tr>
                             <% } %>
                             <tr>
                                 <td class="emptyrow text-right"><strong>Total</strong></td>
-                                <td class="emptyrow text-center">$<%= orders[i].total.totalAmount%></td>
+                                <td class="emptyrow text-center">$<%= data[i].totalAmount%></td>
                             </tr>
+                            
                           </tbody>
                           <% } %>
                       </table>

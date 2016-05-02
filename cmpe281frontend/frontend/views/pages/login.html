@@ -3,10 +3,10 @@
 <head>
   <% include ../partials/header.ejs %>
 </head>
-<body>
+<body style="background-color:#000;">
   <% include ../partials/nav.ejs %>
 
-<div class="container" style="height:800px;">
+<div class="container" style="height:800px;margin-top:20px;">
   <div class="row">
     <div class="col-md-12">
       <div id="err_msg_block" class="alert alert-danger hidden" role="alert">
@@ -14,18 +14,17 @@
         <p id="err_msg"></p>
       </div>
     </div>
-    <div class="col-md-6 col-md-offset-1" style="background-image:url('/shoppingcart.png');overflow:hidden;background-repeat:no-repeat;height:300px;">&nbsp;
+    <div class="col-md-8 col-md-offset-1" style="background-image:url('/login.jpg');overflow:hidden;background-repeat:no-repeat;height:600px;">&nbsp;
     </div>
     <div class="col-md-3">
-      <blockquote>
-        <h3>Login</h3>
-      </blockquote>
+      <h3 style="color:#fff;">Login</h3>
+      <br /><br />
       <form id="frmLogin" role="form">
-        <div class="form-group">
+        <div class="form-group" style="color:#fff;">
           <label for="inpusername">username</label>
           <input type="text" class="form-control" id="inpusername" placeholder="username"/>
         </div>
-        <div class="form-group">
+        <div class="form-group" style="color:#fff;">
           <label for="inppassword">password</label>
           <input type="password" class="form-control" id="inppassword" placeholder="password"/>
         </div>
