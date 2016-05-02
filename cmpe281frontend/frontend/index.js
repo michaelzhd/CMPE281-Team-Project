@@ -82,6 +82,33 @@ app.get('/categories', function(req, res) {
 });
 
 
+app.get('/categories/:id', function(req, res) {
+	http.get({ host: '54.187.124.117', port: '3000', path: '/category/' + req.params.id}, function(response) {
+
+		// Continuously update stream with data
+		var body = '';
+		response.on('data', function(d) {
+			body += d;
+		});
+
+		response.on('end', function() {
+			// Data reception is done, do whatever with it!
+			var parsed = JSON.parse(body);
+			if (req.session.info) {
+				console.log(req.session.info);
+				console.log(req.session.info.movieIDs);
+				res.render('pages/categories', {
+					movies: parsed,
+					MemberInfo: req.session.info,
+				});
+			} else {
+				res.render('pages/categories', {movies : parsed});
+			}
+		});
+	});
+});
+
+
 // detail information
 app.get('/movie/:id', function(req, res) {
 

@@ -16,7 +16,16 @@
 	          <label for="inputTitle">Title</label>
 	          <input type="text" class="form-control" id="inputTitle" placeholder="Title" />
 	        </div>
-
+			<div class="form-group">
+			  <label for="inputGenre">Genre</label>
+				<select class="form-control" id="inputGenre" type="text">
+					<option value="1">Action</option>
+					<option value="2">Animation</option>
+					<option value="3">Drama</option>
+					<option value="4">Family</option>
+					<option value="5">Romance</option>
+				</select>
+			</div>
 	        <div class="form-group">
 	          <label for="inputYear">Year</label>
 	          <input type="text" class="form-control" id="inputYear" placeholder="Year" />
@@ -37,6 +46,10 @@
 	          <input type="text" class="form-control" id="inputPicture" placeholder="Picture" />
 	        </div>
 
+			<div class="form-group">
+			  <label for="inputDescription">Description</label>
+			  <input type="text" class="form-control" id="inputDescription" placeholder="Description" />
+			</div>
 
 	        <div class="form-group text-right">
 	          <button id="btnAdd" type="button" class="btn btn-danger">Submit</button>
@@ -59,7 +72,9 @@
 			year: $('#inputYear').val(),
 			director: $('#inputDirector').val(),
 			title: $('#inputTitle').val(),
-			image: $('#inputPicture').val()
+			image: $('#inputPicture').val(),
+			description: $('#inputDescription').val(),
+			category: $('#inputGenre').val()
 		};
 
 		$.post('/addMovie', data, function (ret) {
