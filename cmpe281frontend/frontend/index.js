@@ -83,6 +83,7 @@ app.get('/categories', function(req, res) {
 
 
 app.get('/categories/:id', function(req, res) {
+	var cid = req.params.id;
 	http.get({ host: '54.187.124.117', port: '3000', path: '/category/' + req.params.id}, function(response) {
 
 		// Continuously update stream with data
@@ -98,11 +99,12 @@ app.get('/categories/:id', function(req, res) {
 				console.log(req.session.info);
 				console.log(req.session.info.movieIDs);
 				res.render('pages/categories', {
+					cat : cid,
 					movies: parsed,
-					MemberInfo: req.session.info,
+					MemberInfo: req.session.info
 				});
 			} else {
-				res.render('pages/categories', {movies : parsed});
+				res.render('pages/categories', {cat : cid, movies : parsed});
 			}
 		});
 	});
@@ -422,7 +424,6 @@ app.post('/removeItem', function (req, res) {
 });
 
 app.get('/admin', function (req, res) {
-	console.log(req.session.info);
 	if (req.session.info == undefined) {
 		res.redirect('/login');
 		return;
@@ -541,7 +542,12 @@ app.get('/editMovie/:id', function (req, res) {
  		response.on('end', function() {
 			var parsed = JSON.parse(body)[0];
 			//console.log(parsed);
-			res.render('pages/editmovie', { data : parsed});
+			if (req.session.info) {
+				res.render('pages/editmovie', { data : parsed, MemberInfo : req.session.info});
+			} else {
+				res.redirect('/login');
+				return;
+			}
 		});
  	});
 });
@@ -558,7 +564,12 @@ app.get('/editUser/:id', function (req, res) {
  		response.on('end', function() {
 			var parsed = JSON.parse(body)[0];
 			//console.log(parsed);
-			res.render('pages/edituser', { data : parsed });
+			if (req.session.info) {
+				res.render('pages/edituser', { data : parsed, MemberInfo : req.session.info });
+			} else {
+				res.redirect('/login');
+				return;
+			}
 		});
  	});
 })
@@ -578,8 +589,8 @@ app.post('/editUser', function (req, res) {
 
 	var userInfo = {
 		"email" : req.body.email,
-		"password" : req.body.password,
-		"username" : req.body.username
+		"username" : req.body.username,
+		"password" : req.body.password
 	};
 
 	var request = http.request(options, function(response) {
@@ -626,7 +637,8 @@ app.post('/editMovie', function (req, res) {
 		"year" : req.body.year,
 		"director" : req.body.director,
 		"title" : req.body.title,
-		"image" : req.body.image
+		"image" : req.body.image,
+		"category" : req.body.category
 	}
 
 	var request = http.request(options, function(response) {
@@ -656,11 +668,21 @@ app.post('/editMovie', function (req, res) {
 });
 
 app.get('/editUser', function (req, res) {
-	res.render('pages/editUser');
+	if (req.session.info) {
+		res.render('pages/editUser', {MemberInfo : req.session.info});
+	} else {
+		res.redirect('/login');
+		return;
+	}
 });
 
 app.get('/addMovie', function (req, res) {
-	res.render('pages/addmovie');
+	if (req.session.info) {
+		res.render('pages/addmovie', {MemberInfo : req.session.info});
+	} else {
+		res.redirect('/login');
+		return;
+	}
 });
 
 app.post('/addMovie', function (req, res) {

@@ -35,10 +35,11 @@
                         <li><a href="/cart"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"> MyCart <span id="NumOfItems" class="badge"><%= MemberInfo.movieIDs.length %></span></span></a></li>
                         <li><a href="/profile"><span class="glyphicon glyphicon-user"></span> <%= MemberInfo.username %></a></li>
                 <%  } else {%>
-                        <a href="/profile"><span class="glyphicon glyphicon-user"></span> <%= MemberInfo.username %></a>
+                        <li><a href="/admin"><span class="glyphicon glyphicon-cog" aria-hidden="true"> console</span></a></li>
+                        <li><a href="/profile"><span class="glyphicon glyphicon-user"></span> <%= MemberInfo.username %></a></li>
                     <% } %>
                 <%  } else {%>
-                    <li><a href="/login">Login</a></li>
+                    <li><a href="/login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
                 <% } /*end if(MemberInfo)*/%>
             </li>
             </ul>

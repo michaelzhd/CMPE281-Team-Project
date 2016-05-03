@@ -3,29 +3,29 @@
 <head>
 	<% include ../partials/header.ejs %>
 </head>
-<body>
+<body style="background-color:#000;">
 	<% include ../partials/nav.ejs %>
 
-	<div class="container" style="height:800px;">
+	<div class="container" style="height:800px;margin-top:20px;">
 
 	  <div class="row">
-	    <div class="col-md-3">
-        <h3>Edit User</h3>
+	  	<br /><br /><br /><br />
+	  	<div class="col-md-8" style="background-image:url('/login.jpg');overflow:hidden;background-repeat:no-repeat;height:600px;">&nbsp;
+      	</div>
+	    <div class="col-md-4">
+        <h3 style="color:#fff;margin-bottom:20px;">Edit User</h3>
 	      <form id="frmEditMovie" role="form">
-	        <div class="form-group">
+	        <div class="form-group" style="color:white">
 	          <label for="inputName">UserName</label>
 	          <input type="text" class="form-control" id="inputName" value="<%= data.username %>" disabled/>
 	        </div>
 
-	        <div class="form-group">
+	        <div class="form-group" style="color:white">
 	          <label for="inputEmail">Email</label>
 	          <input type="text" class="form-control" id="inputEmail" value="<%= data.email%>"/>
+	          <input type="text" class="form-control hidden" id="inputPwd" value="<%= data.password%>"/>
 	        </div>
 
-	        <div class="form-group">
-	          <label for="inputPassword">Password</label>
-	          <input type="text" class="form-control" id="inputPassword" value="<%= data.password%>"/>
-	        </div>
 	        <div class="form-group text-right">
 	          <button id="btnEdit" type="button" uid="<%= data._id%>" class="btn btn-danger">Submit</button>
 	        </div>
@@ -46,7 +46,7 @@
 			id: $(this).attr('uid'),
 			username: $('#inputName').val(),
 			email: $('#inputEmail').val(),
-			password: $('#inputPassword').val()
+			password : $('#inputPwd').val()
 		};
 
 		$.post('/editUser', data, function (ret) {

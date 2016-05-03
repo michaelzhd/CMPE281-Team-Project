@@ -3,21 +3,23 @@
 <head>
 	<% include ../partials/header.ejs %>
 </head>
-<body>
+<body style="background-color:#000;">
 	<% include ../partials/nav.ejs %>
 
-	<div class="container" style="height:800px;">
-
+	<div class="container" style="height:805px;margin-top:20px;">
 	  <div class="row">
-	    <div class="col-md-3">
-        <h3>Add Moive</h3>
+	  	<br /><br /><br /><br />
+	  	<div class="col-md-8" style="background-image:url('/login.jpg');overflow:hidden;background-repeat:no-repeat;height:600px;">&nbsp;
+      	</div>
+	    <div class="col-md-4">
+        <h3 style="color:#fff;margin-bottom:20px;">Add Moive</h3>
 	      <form id="frmEditMovie" role="form">
-	        <div class="form-group">
+	        <div class="form-group" style="color:#fff;">
 	          <label for="inputTitle">Title</label>
 	          <input type="text" class="form-control" id="inputTitle" placeholder="Title" />
 	        </div>
-			<div class="form-group">
-			  <label for="inputGenre">Genre</label>
+			<div class="form-group" style="color:#fff;">
+			  <label for="inputGenre" style="color:#fff;">Genre</label>
 				<select class="form-control" id="inputGenre" type="text">
 					<option value="1">Action</option>
 					<option value="2">Animation</option>
@@ -26,27 +28,27 @@
 					<option value="5">Romance</option>
 				</select>
 			</div>
-	        <div class="form-group">
+	        <div class="form-group" style="color:#fff;">
 	          <label for="inputYear">Year</label>
 	          <input type="text" class="form-control" id="inputYear" placeholder="Year" />
 	        </div>
 
-	        <div class="form-group">
+	        <div class="form-group" style="color:#fff;">
 	          <label for="inputDirector">Director</label>
 	          <input type="text" class="form-control" id="inputDirector" placeholder="Director" />
 	        </div>
 
-	        <div class="form-group">
+	        <div class="form-group" style="color:#fff;">
 	          <label for="inputPrice">Price</label>
 	          <input type="text" class="form-control" id="inputPrice"  placeholder="Price" />
 	        </div>
 
-	        <div class="form-group">
+	        <div class="form-group" style="color:#fff;">
 	          <label for="inputPicture">Picture</label>
 	          <input type="text" class="form-control" id="inputPicture" placeholder="Picture" />
 	        </div>
 
-			<div class="form-group">
+			<div class="form-group" style="color:#fff;">
 			  <label for="inputDescription">Description</label>
 			  <input type="text" class="form-control" id="inputDescription" placeholder="Description" />
 			</div>

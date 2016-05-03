@@ -9,13 +9,27 @@
 <header>
     <% include ../partials/nav.ejs %>
 </header>
-<div class="container">
+<div class="container-fluid">
     <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
     <div class="row">
-        <div class="col-md-3">
-            <% include ../partials/categorylist %>
+        <div class="col-md-2 sidebar" style="padding-left:0px;padding-right:0px;height:870px;background-color:#000;">
+            <% if (typeof cat == 'undefined') { %>
+                <% include ../partials/categorylist %>
+            <% } else { %>
+            <% if (cat == 1) { %>
+                <% include ../partials/categorylist1 %>
+            <% } else if(cat == 2) { %>
+                <% include ../partials/categorylist2 %>
+            <% } else if(cat == 3) { %>
+                <% include ../partials/categorylist3 %>
+            <% } else if(cat == 4) { %>  
+                <% include ../partials/categorylist4 %>
+            <% } else if(cat == 5) { %>     
+                <% include ../partials/categorylist5 %>
+            <% } %>
+            <% } %>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-10">
             <% include ../partials/productlist %>
         </div>
     </div>
