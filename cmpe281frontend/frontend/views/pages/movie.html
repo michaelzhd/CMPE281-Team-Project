@@ -6,7 +6,7 @@
 <body>
   <% include ../partials/nav.ejs %>
 
-<div class="container" style="height:800px;">
+<div class="container" style="height:860px;">
   <h3>
     <blockquote><strong>Movies</strong></blockquote>
   </h3>
@@ -14,6 +14,12 @@
   <div id="userId" class="hidden" uid="<%= MemberInfo._id%>"></div>
   <% } %>
   <div class="row">
+    <div class="col-md-12">
+      <div id="err_msg_block" class="alert alert-danger hidden" role="alert">
+        <button id="err_msg_close" type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <p id="err_msg"></p>
+      </div>
+    </div>
     <div class="col-md-6">
       <div class="thumbnail">
         <div class="text-center">
@@ -56,19 +62,27 @@
 ;jQuery(function ($) {
   $('#addToCart').on('click', function () {
 
-  var mid = $(this).attr('mid');
-  var data = { 
-    'movieId' : mid
-  };
-  var uid = $('#userId').attr('uid');
-  if (uid === undefined) {
-    window.location.href = '/login';
-  } else {
-    $.post('/addToCart', data, function(ret){
-      num = (parseInt($("#NumOfItems").text())+1);
-      $('#NumOfItems').text(num );
+    var mid = $(this).attr('mid');
+    var data = { 
+      'movieId' : mid
+    };
+    var uid = $('#userId').attr('uid');
+    $('#err_msg_close').click(function(){
+        $('#err_msg_block').addClass('hidden');
     });
-  }
+    if (uid === undefined) {
+      window.location.href = '/login';
+    } else {
+      $.post('/addToCart', data, function(ret){
+        num = (parseInt($("#NumOfItems").text())+1);
+        $('#NumOfItems').text(num );
+        if(ret.result == true) {
+            $('#err_msg').empty().append("movie added!").parents('#err_msg_block').attr('class', 'alert alert-success');
+        } else {
+            $('#err_msg').empty().append(ret.msg).parents('#err_msg_block').attr('class', 'alert alert-danger');
+        }
+      });
+    }
   });
 })
 </script>

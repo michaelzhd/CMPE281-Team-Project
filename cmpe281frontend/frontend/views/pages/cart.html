@@ -6,9 +6,13 @@
 
 	<body>
 		<% include ../partials/nav.ejs %>
-		<div class="container">
+		<div>
+			<img src="/moviebanner.png"></img>
+		</div>
+		<div class="container-fluid" style="height:460px;">
+
 			<div class="row">
-				<div class="jumbotron col-lg-8 col-lg-offset-2">
+				<div class="jumbotron col-lg-8 col-lg-offset-2" style="background-color:#fff;">
 					<table class="table table-bordered">
 				    <thead style="text-align: center;">
 				      <tr class="warning" >
@@ -18,7 +22,7 @@
 				      </tr>
 				    </thead>
 				    <% if(typeof(data) != 'undefined') { %>
-					    <tbody>
+					    <tbody style="color:#000;">
 					    <% for(var i = 0; i < data.length; i++) { %>
 					      <tr class="text-center">
 					        <td><%= data[i].title %></td>
@@ -87,7 +91,6 @@
   	console.log($total);
   	$.post('/checkout', data, function (ret) {
   		if (ret.result) {
-  			alert('order created, order id is: ' + ret.msg._id);
   			window.location.href = '/order'
   		} else {
   			alert('fail to create order');

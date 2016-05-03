@@ -12,6 +12,12 @@
 <div class="container-fluid">
     <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
     <div class="row">
+        <div class="col-md-12">
+          <div id="err_msg_block" class="alert alert-danger hidden" role="alert">
+            <button id="err_msg_close" type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <p id="err_msg"></p>
+          </div>
+        </div>
         <div class="col-md-2 sidebar" style="padding-left:0px;padding-right:0px;height:870px;background-color:#000;">
             <% if (typeof cat == 'undefined') { %>
                 <% include ../partials/categorylist %>
@@ -49,24 +55,25 @@
 
 <script type="text/javascript">
     AddtoCart = function(movieId) {
-
-//    }
-//    ;jQuery(function ($) {
-//        $('#addToCart').on('click', function () {
-
-            //var mid = $('#movieid').attr('mid');
-            var data = {
-                'movieId' : movieId.id
-            };
-            var uid = $('#userId').attr('uid');
-            if (uid === undefined) {
-                window.location.href = '/login';
-            } else {
-                $.post('/addToCart', data, function(ret){
-                    num = (parseInt($("#NumOfItems").text())+1);
-                    $('#NumOfItems').text(num );
-                });
-            }
-//        });
+        var data = {
+            'movieId' : movieId.id
+        };
+        var uid = $('#userId').attr('uid');
+        $('#err_msg_close').click(function(){
+            $('#err_msg_block').addClass('hidden');
+        });
+        if (uid === undefined) {
+            window.location.href = '/login';
+        } else {
+            $.post('/addToCart', data, function(ret){
+                num = (parseInt($("#NumOfItems").text())+1);
+                $('#NumOfItems').text(num );
+                if(ret.result == true) {
+                    $('#err_msg').empty().append("movie added!").parents('#err_msg_block').attr('class', 'alert alert-success');
+                } else {
+                    $('#err_msg').empty().append(ret.msg).parents('#err_msg_block').attr('class', 'alert alert-danger');
+                }
+            });
+        }
     }
 </script>

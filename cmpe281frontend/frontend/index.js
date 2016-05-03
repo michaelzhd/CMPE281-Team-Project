@@ -43,8 +43,7 @@ app.get('/', function(req, res) {
 			// Data reception is done, do whatever with it!
 			var parsed = JSON.parse(body);
 			if (req.session.info) {
-				console.log(req.session.info);
-				console.log(req.session.info.movieIDs);
+				req.session.movieInfo = parsed;
 				res.render('pages/index', {
 					data: parsed,
 					MemberInfo: req.session.info,
@@ -821,11 +820,7 @@ app.get('/order', function (req, res) {
 			// Data reception is done, do whatever with it!
 			var parsed = JSON.parse(body);
 			console.log('order ', parsed);
-			if (parsed.password == pwd) {
-				res.json({result : true, orders : parsed});
-		  	} else {
-		  		res.json({result : false, msg : "login fail!"});
-		  	}
+			res.render('pages/order', {data : parsed, MemberInfo: req.session.info, MovieInfo : req.session.movieInfo});
 		});
  	});
 });

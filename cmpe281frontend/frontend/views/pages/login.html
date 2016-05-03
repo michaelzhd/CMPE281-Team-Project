@@ -6,19 +6,20 @@
 <body style="background-color:#000;">
   <% include ../partials/nav.ejs %>
 
-<div class="container" style="height:800px;margin-top:20px;">
+<div class="container" style="height:840px;margin-top:20px;">
+  
   <div class="row">
     <div class="col-md-12">
+      <h3 style="color:#fff;margin-bottom:20px">Login</h3>
       <div id="err_msg_block" class="alert alert-danger hidden" role="alert">
         <button id="err_msg_close" type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <p id="err_msg"></p>
       </div>
     </div>
-    <div class="col-md-8 col-md-offset-1" style="background-image:url('/login.jpg');overflow:hidden;background-repeat:no-repeat;height:600px;">&nbsp;
+    <div class="col-md-8" style="background-image:url('/login.jpg');overflow:hidden;background-repeat:no-repeat;height:600px;">&nbsp;
     </div>
-    <div class="col-md-3">
-      <h3 style="color:#fff;">Login</h3>
-      <br /><br />
+    <div class="col-md-4">
+      <br /><br /><br /><br />
       <form id="frmLogin" role="form">
         <div class="form-group" style="color:#fff;">
           <label for="inpusername">username</label>
